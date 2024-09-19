@@ -1,0 +1,20 @@
+.filter-section {
+  background-color: var(--light-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+  width: 30%;
+  box-sizing: border-box;
+}
+
+.filter-section h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  color: var(--text-color);
+}
+
+.filter-section .react-select__control {
+  margin-bottom: 15px;
+}

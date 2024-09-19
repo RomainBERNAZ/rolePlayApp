@@ -1,0 +1,13 @@
+:root {
+    --primary-color: #007bff;
+    --primary-hover-color: #0056b3;
+    --secondary-color: #6c757d;
+    --danger-color: #f44336;
+    --danger-hover-color: #d32f2f;
+    --success-color: #28a745;
+    --light-bg-color: #f8f9fa;
+    --border-color: #dee2e6;
+    --text-color: #333;
+    --font-family: 'Poppins', sans-serif;
+    --max-width: 1200px;
+  }

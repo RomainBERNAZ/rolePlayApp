@@ -1,0 +1,88 @@
+.jeux-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0px 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.jeu-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.jeu-form input,
+.jeu-form textarea {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.jeu-form textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.jeu-form button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.jeu-form button:hover {
+  background-color: #0056b3;
+}
+
+.jeux-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.jeu-item {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.jeu-item h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.jeu-item p {
+  flex-grow: 1;
+  margin-bottom: 15px;
+}
+
+.jeu-item button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.jeu-item button:last-child {
+  background-color: #dc3545;
+}
+
+.jeu-item button:hover {
+  opacity: 0.8;
+}

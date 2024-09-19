@@ -1,0 +1,52 @@
+.personnage-detail {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--light-bg-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.personnage-detail h1 {
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.personnage-info {
+    background-color: white;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.personnage-info p {
+    margin: 10px 0;
+}
+
+button[type="button"] {
+    background-color: var(--secondary-color);
+}
+
+button[type="button"]:hover {
+    background-color: var(--secondary-hover-color);
+}
+
+.bouton-retour {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+.bouton-retour:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: var(--danger-color);
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}

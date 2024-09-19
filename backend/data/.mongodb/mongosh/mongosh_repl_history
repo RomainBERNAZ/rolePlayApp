@@ -1,0 +1,79 @@
+use admin
+db.participations.find()
+show collections
+db.jeux.find()
+db.jeux.drop()
+db.jeux.find()
+show collections
+use admin
+show collections
+db.jeux.find()
+db.jeuxes.drop()
+show collections
+db.jeus.drop()
+show collections
+db.jeus.renameCollection("jeux")
+show collections
+db.jeus.drop()
+show collections
+db.jeus.drop()
+show collections
+db.jeux.drop()
+show collections
+db.jeus.drop()
+show collections
+db.jeus.drop()
+db.jeux.find()
+show collections
+db.jeus.drop()
+show collections
+db.jeus.drop()
+db.jeus.find()
+db.jeux.find()
+show collections
+show collection
+db.jeux.find()
+show collections
+db.jeus.drop()
+db.remove(jeus)
+db.remove(jeu)
+show collections 
+db.jeux.find()
+show collections
+db.jeus.renameCollection('jeux')
+show collections
+alias sc=show collections
+use admin
+db.users.find()
+db.users.remove({})
+db.users.find()
+db.joueurs.find()
+show collections
+db.users.find()
+show collections
+db.users.find()
+show collections
+use admin
+db.personnages.find()
+show collections 
+db.users.find()
+show collections
+use admin
+show collections
+show
+show collections
+db.getUsers()
+db.personnages.find().pretty()
+db.personnages.find()
+show personnages
+db.getPersonnages()
+show collections
+db.personnages.insertOne({ nom: "Aragorn", classe: "Rôdeur", niveau: 20, race: "Humain", competences: ["Épée", "Pistage", "Survie"] })
+db.getCollectionNames()
+show collections
+show collection
+db.getUsers()
+db.getUser()
+ls
+use admin
+show dbs

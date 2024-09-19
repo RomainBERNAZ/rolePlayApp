@@ -1,0 +1,58 @@
+.joueur {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.joueur h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.joueur-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.joueur-table th,
+.joueur-table td {
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.joueur-table th {
+  background-color: var(--light-bg-color);
+  font-weight: bold;
+}
+
+.joueur-table tr:nth-child(even) {
+  background-color: var(--light-bg-color);
+}
+
+.joueur-table tr:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.joueur-table a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.joueur-table a:hover {
+  text-decoration: underline;
+}
+
+.bouton-supprimer {
+  background-color: var(--danger-color);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.bouton-supprimer:hover {
+  background-color: var(--danger-hover-color);
+}

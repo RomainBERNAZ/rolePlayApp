@@ -1,0 +1,33 @@
+.sub-menu {
+  margin: 0;
+  padding: 10px 0;
+}
+
+.sub-menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center; /* Modifié : centrer horizontalement */
+}
+
+.sub-menu li {
+  margin-right: 10px;
+}
+
+.sub-menu button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+.sub-menu li.active button {
+  color: #007bff;
+}
+
+.sub-menu button:hover {
+  color: white;
+}

@@ -1,0 +1,17 @@
+.home {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.game-description {
+  margin-bottom: 30px;
+}
+
+.game-description h2 {
+  margin-top: 20px;
+}
+
+.game-description ul, .game-description ol {
+  margin-left: 20px;
+}
