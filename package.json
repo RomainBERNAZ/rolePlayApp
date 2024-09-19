@@ -1,0 +1,13 @@
+{
+  "name": "your-project-name",
+  "version": "1.0.0",
+  "description": "Your project description",
+  "engines": {
+    "node": "20.x"
+  },
+  "scripts": {
+    "start": "cd backend && npm start",
+    "build": "cd backend && npm install"
+  },
+  "cacheDirectories": ["backend/node_modules"]
+}
