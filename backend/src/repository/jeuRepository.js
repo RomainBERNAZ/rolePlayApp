@@ -1,4 +1,4 @@
-const Jeu = require('../models/Jeu');
+const Jeu = require('../models/Jeu.js');
 
 class JeuRepository {
   static async creer(jeuData) {

@@ -1,4 +1,4 @@
-const PersonnageService = require('../service/personnageService');
+const PersonnageService = require('../service/personnageService.js');
 const handleError = require('../utils/errorHandler');
 
 exports.creerPersonnage = async (req, res) => {

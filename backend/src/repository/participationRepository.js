@@ -1,4 +1,4 @@
-const Participation = require('../models/participation');
+const Participation = require('../models/Participation.js');
 
 class ParticipationRepository {
   static async creer(participationData) {

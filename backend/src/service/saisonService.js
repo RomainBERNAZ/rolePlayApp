@@ -1,5 +1,5 @@
-const SaisonRepository = require('../repository/saisonRepository');
-const JeuRepository = require('../repository/jeuRepository');
+const SaisonRepository = require('../repository/saisonRepository.js');
+const JeuRepository = require('../repository/jeuRepository.js');
 
 class SaisonService {
   static async creerSaison(saisonData) {

@@ -1,4 +1,4 @@
-const SaisonService = require('../service/saisonService');
+const SaisonService = require('../service/saisonService.js');
 const handleError = require('../utils/errorHandler');
 
 exports.creerSaison = async (req, res) => {

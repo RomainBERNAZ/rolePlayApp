@@ -1,4 +1,4 @@
-const Personnage = require('../models/personnage');
+const Personnage = require('../models/personnage.js');
 
 class PersonnageRepository {
   static async creer(personnageData) {

@@ -1,5 +1,5 @@
-const JoueurRepository = require('../repository/joueurRepository');
-const PersonnageRepository = require('../repository/personnageRepository');
+const JoueurRepository = require('../repository/joueurRepository.js');
+const PersonnageRepository = require('../repository/personnageRepository.js');
 
 class JoueurService {
   static async creerJoueur(joueurData) {

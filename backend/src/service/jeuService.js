@@ -1,4 +1,4 @@
-const JeuRepository = require('../repository/jeuRepository');
+const JeuRepository = require('../repository/jeuRepository.js');
 
 class JeuService {
   static async creerJeu(jeuData) {

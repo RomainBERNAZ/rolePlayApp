@@ -1,5 +1,5 @@
 const handleError = require('../utils/errorHandler');
-const JeuService = require('../service/jeuService');
+const JeuService = require('../service/jeuService.js');
 
 exports.creerJeu = async (req, res) => {
   try {

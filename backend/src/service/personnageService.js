@@ -1,7 +1,7 @@
-const PersonnageRepository = require('../repository/personnageRepository');
-const JoueurRepository = require('../repository/joueurRepository');
-const JeuRepository = require('../repository/jeuRepository');
-const ParticipationRepository = require('../repository/participationRepository');
+const PersonnageRepository = require('../repository/personnageRepository.js');
+const JoueurRepository = require('../repository/joueurRepository.js');
+const JeuRepository = require('../repository/jeuRepository.js');
+const ParticipationRepository = require('../repository/participationRepository.js');
 
 class PersonnageService {
   static async creerPersonnage(personnageData) {

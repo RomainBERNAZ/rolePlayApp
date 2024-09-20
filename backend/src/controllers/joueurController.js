@@ -1,4 +1,4 @@
-const JoueurService = require('../service/joueurService');
+const JoueurService = require('../service/joueurService.js');
 const handleError = require('../utils/errorHandler');
 
 // Fonction pour créer un joueur
