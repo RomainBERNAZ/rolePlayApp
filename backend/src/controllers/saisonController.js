@@ -68,3 +68,14 @@ export const retirerPersonnage = async (req, res) => {
     handleError(res, error);
   }
 };
+
+export default {
+  creerSaison,
+  obtenirSaisons,
+  obtenirSaisonParId,
+  mettreAJourSaison,
+  supprimerSaison,
+  ajouterPersonnage,
+  retirerPersonnage,
+};
+  

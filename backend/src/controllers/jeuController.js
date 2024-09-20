@@ -10,7 +10,7 @@ export const creerJeu = async (req, res) => {
   }
 };
 
-  export const obtenirJeux = async (req, res) => {
+export const obtenirJeux = async (req, res) => {
   try {
     const jeux = await JeuService.obtenirJeux();
     res.json(jeux);
@@ -75,4 +75,15 @@ export const retirerPersonnage = async (req, res) => {
   } catch (error) {
     handleError(res, error);
   }
+};
+
+export default {
+  creerJeu,
+  obtenirJeux,
+  obtenirJeuParId,
+  mettreAJourJeu,
+  supprimerJeu,
+  retirerJoueur,
+  ajouterPersonnage,
+  retirerPersonnage,
 };

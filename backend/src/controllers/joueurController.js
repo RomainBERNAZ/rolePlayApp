@@ -62,3 +62,11 @@ export const supprimerJoueur = async (req, res) => {
     handleError(res, error);
   }
 };
+
+export default {
+  creerJoueur,
+  obtenirJoueurs,
+  obtenirJoueurParId,
+  mettreAJourJoueur,
+  supprimerJoueur,
+};

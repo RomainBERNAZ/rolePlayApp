@@ -57,3 +57,11 @@ export const obtenirPersonnageParId = async (req, res) => {
     handleError(res, error);
   }
 };
+
+export default {
+  creerPersonnage,
+  mettreAJourPersonnage,
+  supprimerPersonnage,
+  obtenirPersonnages,
+  obtenirPersonnageParId,
+};
