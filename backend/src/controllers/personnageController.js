@@ -1,5 +1,5 @@
 import PersonnageService from '../service/personnageService.js';
-import handleError from '../utils/errorHandler';
+import handleError from '../utils/errorHandler.js';  
 
 export const creerPersonnage = async (req, res) => {
   try {

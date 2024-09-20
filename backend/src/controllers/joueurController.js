@@ -1,5 +1,5 @@
 import JoueurService from '../service/joueurService.js';
-import handleError from '../utils/errorHandler';
+import handleError from '../utils/errorHandler.js';
 
 // Fonction pour créer un joueur
 export const creerJoueur = async (req, res) => {

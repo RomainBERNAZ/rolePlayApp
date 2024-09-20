@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const supertest = require('supertest');
-const { MongoMemoryServer } = require('mongodb-memory-server');
-const express = require('express');
-const joueurController = require('../controllers/joueurController');
+import mongoose from 'mongoose';
+import supertest from 'supertest';
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import express from 'express';
+import joueurController from '../controllers/joueurController.js';
 
 let mongoServer;
 let app;
@@ -47,7 +47,6 @@ describe('Joueur Controller Integration Tests', () => {
     expect(Array.isArray(response.body)).toBeTruthy();
   });
   it('should get a joueur by ID', async () => {
-    // First, create a joueur to get its ID
     const createResponse = await api
       .post('/joueurs')
       .send({ nom: 'Get By ID Joueur', email: 'getbyid@example.com' });
@@ -96,6 +95,4 @@ describe('Joueur Controller Integration Tests', () => {
     const getResponse = await api.get(`/joueurs/${joueurId}`);
     expect(getResponse.status).toBe(404);
   });
-
-  // Add more tests for other routes (GET by ID, PUT, DELETE) here
 });

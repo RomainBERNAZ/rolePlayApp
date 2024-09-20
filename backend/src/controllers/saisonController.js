@@ -1,5 +1,5 @@
 import SaisonService from '../service/saisonService.js';
-import handleError from '../utils/errorHandler';
+import handleError from '../utils/errorHandler.js';
 
 export const creerSaison = async (req, res) => {
   try {

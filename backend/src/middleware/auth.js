@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';  
-import authRoutes from '../routes/auth';
 
 export default function(req, res, next) {
   const token = req.header('x-auth-token');

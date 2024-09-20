@@ -1,4 +1,4 @@
-import handleError from '../utils/errorHandler'; 
+import handleError from '../utils/errorHandler.js';  
 import JeuService from '../service/jeuService.js';
 
 export const creerJeu = async (req, res) => {

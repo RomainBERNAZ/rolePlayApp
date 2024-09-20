@@ -1,6 +1,5 @@
-import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-import User from '../../models/User.js'; // Assurez-vous que le chemin est correct
+import User from '../../models/User.js'; 
 
 async function seedUsers() {
   const users = [

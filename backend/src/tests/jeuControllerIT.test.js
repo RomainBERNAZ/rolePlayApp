@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const supertest = require('supertest');
-const { MongoMemoryServer } = require('mongodb-memory-server');
-const express = require('express');
-const jeuController = require('../controllers/jeuController');
+import mongoose from 'mongoose';
+import supertest from 'supertest';
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import express from 'express';
+import jeuController from '../controllers/jeuController.js';
 
 let mongoServer;
 let app;
