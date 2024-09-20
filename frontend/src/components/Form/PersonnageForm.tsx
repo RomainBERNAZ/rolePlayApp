@@ -3,7 +3,8 @@ import axios from 'axios';
 import Select from 'react-select';
 import Personnage from '../../types/personnage';
 import { Jeu } from '../../types/jeu';
-import Joueur from '../../types/joueur'; // Importez l'interface Joueur existante
+import Joueur from '../../types/joueur'; // Importez l'interface Joueur existant
+import { API_URL } from '../../utils/constants';
 
 interface PersonnageFormProps {
   onSubmit: (personnage: Omit<Personnage, '_id'>) => void;
@@ -35,7 +36,7 @@ export const PersonnageForm: React.FC<PersonnageFormProps> = ({ onSubmit }) => {
   useEffect(() => {
     const fetchJeux = async () => {
       try {
-        const response = await axios.get<Jeu[]>('http://localhost:5000/jeux');
+          const response = await axios.get<Jeu[]>(`${API_URL}/jeux`);
         setJeux(response.data);
       } catch (error) {
         console.error('Erreur lors de la récupération des jeux:', error);
@@ -43,7 +44,7 @@ export const PersonnageForm: React.FC<PersonnageFormProps> = ({ onSubmit }) => {
     };
     const fetchJoueurs = async () => {
       try {
-        const response = await axios.get<Joueur[]>('http://localhost:5000/joueurs');
+        const response = await axios.get<Joueur[]>(`${API_URL}/joueurs`);
         setJoueurs(response.data);
       } catch (error) {
         console.error('Erreur lors de la récupération des joueurs:', error);

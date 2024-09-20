@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { API_BASE_URL } from '../../utils/constants';
+import { API_URL } from '../../utils/constants';
 import { Jeu } from '../../types/jeu';
 
 export const useAddPersonnageToJeu = (jeuId: string, setJeu: React.Dispatch<React.SetStateAction<Jeu>>) => {
@@ -11,7 +11,7 @@ export const useAddPersonnageToJeu = (jeuId: string, setJeu: React.Dispatch<Reac
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.patch(`${API_BASE_URL}/jeux/${jeuId}/addPersonnage`, {
+      const response = await axios.patch(`${API_URL}/jeux/${jeuId}/addPersonnage`, {
         personnageId,
       });
       const updatedJeu = response.data;

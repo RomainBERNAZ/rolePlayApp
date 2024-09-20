@@ -3,7 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const User = require('./src/models/User'); // Assurez-vous d'avoir un modèle User
+const User = require('./src/models/User');
 const personnageController = require('./src/controllers/personnageController');
 const joueurController = require('./src/controllers/joueurController');
 const jeuController = require('./src/controllers/jeuController');
@@ -15,30 +15,42 @@ const seedSaisons = require('./src/utils/seedDatas/seedSaison');
 
 require('dotenv').config();
 
+const isProduction = process.env.NODE_ENV === 'production';
+const MONGODB_URI = isProduction ? process.env.MONGODB_URI_PROD : process.env.MONGODB_URI_DEV;
+
 const app = express();
 const port = process.env.PORT || 5000;
 
-mongoose.connect(process.env.MONGO_URI, {
+// Configuration CORS
+const corsOptions = {
+  origin: isProduction 
+    ? process.env.FRONTEND_URL // URL de votre frontend sur Vercel
+    : 'http://localhost:3000', // URL de développement local
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+app.use(express.json());
+
+// Connexion à MongoDB
+mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
 .then(() => {
-  console.log('Connecté à la base de données');
-  seedJeux();
-  seedSaisons();
-   // Appel de la fonction seedJeux après la connexion
-  return seedUsers(); // Appel de la fonction seedUsers après la connexion
-
+  console.log(`Connecté à MongoDB ${isProduction ? 'Atlas' : 'local'}`);
+  if (!isProduction) {
+    return Promise.all([seedJeux(), seedSaisons(), seedUsers()]);
+  }
 })
 .then(() => {
-  console.log('Utilisateurs de test créés ou vérifiés');
+  if (!isProduction) {
+    console.log('Données de test créées ou vérifiées');
+  }
 })
 .catch((err) => console.error('Erreur de connexion ou de seeding :', err));
 
-app.use(cors());
-app.use(express.json());
-
-// Routes pour les personnages
+// Routes
 app.use('/auth', authRoutes);
 app.post('/personnages', personnageController.creerPersonnage);
 app.get('/personnages', personnageController.obtenirPersonnages);
@@ -64,10 +76,10 @@ app.get('/saisons/:id', saisonController.obtenirSaisonParId);
 app.put('/saisons/:id', saisonController.mettreAJourSaison);
 app.delete('/saisons/:id', saisonController.supprimerSaison);
 
-// Supposons que nous avons un ensemble pour stocker les tokens invalidés
+// Gestion des tokens invalidés
 const invalidatedTokens = new Set();
 
-// Ajoutez cette fonction de middleware pour vérifier le token
+// Middleware de vérification du token
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
   if (!token) {
@@ -85,8 +97,7 @@ const verifyToken = (req, res, next) => {
   return next();
 };
 
-// Modifiez la route de login pour utiliser une clé secrète depuis les variables d'environnement
-// et augmenter la durée de validité du token
+// Route de login
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -107,21 +118,19 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// Ajoutez une route pour vérifier le token
+// Route de vérification du token
 app.get('/verify-token', verifyToken, (req, res) => {
   res.json({ valid: true, user: req.user });
 });
 
+// Route de déconnexion
 app.post('/logout', (req, res) => {
   const token = req.headers.authorization?.split(' ')[1];
   
   if (token) {
-    // Ajouter le token à la liste des tokens invalidés
     invalidatedTokens.add(token);
-    
-    // Optionnel : Vous pouvez également essayer de décoder le token pour obtenir des informations supplémentaires
     try {
-      const decoded = jwt.verify(token, 'votre_secret_jwt');
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
       console.log(`Utilisateur ${decoded.id} déconnecté`);
     } catch (error) {
       console.log('Token invalide ou expiré');
@@ -131,10 +140,12 @@ app.post('/logout', (req, res) => {
   res.json({ message: "Déconnexion réussie" });
 });
 
+// Route racine
 app.get('/', (req, res) => {
   res.send('Bienvenue sur votre API Express !');
 });
 
+// Démarrage du serveur
 app.listen(port, () => {
   console.log(`Serveur en cours d'exécution sur le port ${port}`);
 });

@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './JoueurDetails.css';
 import Joueur from '../../types/joueur';
+import { API_URL } from '../../utils/constants';
 
 const JoueurDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -15,7 +16,7 @@ const JoueurDetail: React.FC = () => {
 
   const fetchJoueur = useCallback(async () => {
     try {
-      const response = await axios.get<Joueur>(`http://localhost:5000/joueurs/${id}`);
+      const response = await axios.get<Joueur>(`${API_URL}/joueurs/${id}`);
       setJoueur(response.data);
     } catch (error) {
       console.error('Erreur lors de la récupération du joueur:', error);
@@ -44,7 +45,7 @@ const JoueurDetail: React.FC = () => {
     if (!editedJoueur) return;
 
     try {
-      await axios.put(`http://localhost:5000/joueurs/${id}`, editedJoueur);
+      await axios.put(`${API_URL}/joueurs/${id}`, editedJoueur);
       setJoueur(editedJoueur);
       setIsEditing(false);
     } catch (error) {

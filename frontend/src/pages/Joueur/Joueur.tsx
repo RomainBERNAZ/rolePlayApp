@@ -6,6 +6,7 @@ import Modal from '../../components/Modal/Modal.tsx';
 import Joueur from '../../types/joueur.tsx';
 import './Joueur.css';
 import Table from '../../components/Table/Table.tsx';
+import { API_URL } from '../../utils/constants';
 
 const JoueurPage: React.FC = () => {
   const [joueurs, setJoueurs] = useState<Joueur[]>([]);
@@ -13,7 +14,7 @@ const JoueurPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newJoueur, setNewJoueur] = useState<Omit<Joueur, '_id'>>({ nom: '', email: '', personnages: [] });
+  const [newJoueur, setNewJoueur] = useState<Omit<Joueur, '_id'>>({ nom: '', email: '', personnages: [], jeux: [] });
 
   useEffect(() => {
     fetchJoueurs();
@@ -22,7 +23,7 @@ const JoueurPage: React.FC = () => {
 
   const fetchJoueurs = async () => {
     try {
-      const response = await axios.get<Joueur[]>('http://localhost:5000/joueurs?populate=personnages');
+      const response = await axios.get<Joueur[]>(`${API_URL}/joueurs?populate=personnages`);
       setJoueurs(response.data);
     } catch (error) {
       console.error('Erreur lors de la récupération des joueurs:', error);
@@ -34,7 +35,7 @@ const JoueurPage: React.FC = () => {
 
   const fetchPersonnages = async () => {
     try {
-      const response = await axios.get<Personnage[]>('http://localhost:5000/personnages');
+      const response = await axios.get<Personnage[]>(`${API_URL}/personnages`);
       setPersonnages(response.data);
     } catch (error) {
       console.error('Erreur lors de la récupération des personnages:', error);
@@ -47,14 +48,14 @@ const JoueurPage: React.FC = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.post<Joueur>('http://localhost:5000/joueurs', newJoueur);
+      const response = await axios.post<Joueur>(`${API_URL}/joueurs`, newJoueur);
       
       // Fetch the newly created joueur with populated personnages
-      const newJoueurResponse = await axios.get<Joueur>(`http://localhost:5000/joueurs/${response.data._id}?populate=personnages`);
+      const newJoueurResponse = await axios.get<Joueur>(`${API_URL}/joueurs/${response.data._id}?populate=personnages`);
       
       setJoueurs(prevJoueurs => [...prevJoueurs, newJoueurResponse.data]);
       setIsModalOpen(false);
-      setNewJoueur({ nom: '', email: '', personnages: [] });
+      setNewJoueur({ nom: '', email: '', personnages: [], jeux: [] });
     } catch (error) {
       console.error('Erreur lors de l\'ajout du joueur:', error);
       setError('Erreur lors de l\'ajout du joueur. Veuillez réessayer.');
@@ -65,7 +66,7 @@ const JoueurPage: React.FC = () => {
 
   const handleDeleteJoueur = async (id: string) => {
     try {
-      await axios.delete(`http://localhost:5000/joueurs/${id}`);
+      await axios.delete(`${API_URL}/joueurs/${id}`);
       setJoueurs(joueurs.filter(j => j._id !== id));
     } catch (error) {
       console.error('Erreur lors de la suppression du joueur:', error);

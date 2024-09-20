@@ -5,7 +5,7 @@ import Modal from '../../../components/Modal/Modal.tsx';
 import { Jeu } from '../../../types/jeu';
 import { usePersonnages } from '../../../components/Hooks/usePersonnages.tsx';
 import { useJoueurs } from '../../../components/Hooks/useJoueurs.tsx';
-import { API_BASE_URL } from '../../../utils/constants';
+import { API_URL } from '../../../utils/constants';
 import { useAddPersonnageToJeu } from '../../../components/Hooks/useAddPersonnageToJeu.tsx';
 import { createPersonnageColumns } from '../../../components/Table/personnageColumns.tsx';
 
@@ -47,7 +47,7 @@ const PersonnageJeu: React.FC<PersonnageJeuProps> = ({ jeuId, jeu, setJeu }) => 
 
     const handleRemoveCharacter = async (personnageId: string) => {
         try {
-            const response = await axios.delete(`${API_BASE_URL}/jeux/${jeuId}/removePersonnage/${personnageId}`);
+            const response = await axios.delete(`${API_URL}/jeux/${jeuId}/removePersonnage/${personnageId}`);
             const updatedJeu = response.data;
             setJeu(updatedJeu);
         } catch (error) {

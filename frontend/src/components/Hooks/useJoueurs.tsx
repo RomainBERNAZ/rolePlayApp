@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Joueur from '../../types/joueur';
-import { API_BASE_URL } from '../../utils/constants';
+import { API_URL } from '../../utils/constants';
 
 export const useJoueurs = () => {
   const [players, setPlayers] = useState<Record<string, string>>({});
@@ -9,7 +9,7 @@ export const useJoueurs = () => {
   useEffect(() => {
     const fetchPlayers = async () => {
       try {
-        const response = await axios.get<Joueur[]>(`${API_BASE_URL}/joueurs`);
+        const response = await axios.get<Joueur[]>(`${API_URL}/joueurs`);
         const playersMap = response.data.reduce((acc, player) => {
           acc[player._id] = player.nom;
           return acc;

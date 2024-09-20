@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './PersonnageDetail.css';
 import Personnage from '../../types/personnage';
+import { API_URL } from '../../utils/constants';
 
 const PersonnageDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,7 +17,7 @@ const PersonnageDetail: React.FC = () => {
   useEffect(() => {
     const fetchPersonnage = async () => {
       try {
-        const response = await axios.get<Personnage>(`http://localhost:5000/personnages/${id}`);
+        const response = await axios.get<Personnage>(`${API_URL}/personnages/${id}`);
         setPersonnage(response.data);
       } catch (error) {
         console.error('Erreur lors de la récupération du personnage:', error);
@@ -44,7 +45,7 @@ const PersonnageDetail: React.FC = () => {
     if (!editedPersonnage) return;
 
     try {
-      await axios.put(`http://localhost:5000/personnages/${id}`, editedPersonnage);
+      await axios.put(`${API_URL}/personnages/${id}`, editedPersonnage);
       setPersonnage(editedPersonnage);
       setIsEditing(false);
     } catch (error) {

@@ -8,6 +8,7 @@ import PersonnageList from './PersonnageList.tsx';
 import FilterSection from '../../components/Filter/FilterSection.tsx';
 import { OptionType } from '../../types/common';
 import Personnage from '../../types/personnage';
+import { API_URL } from '../../utils/constants';
 
 const PersonnagePage: React.FC = () => {
   const [personnages, setPersonnages] = useState<Personnage[]>([]);
@@ -19,7 +20,7 @@ const PersonnagePage: React.FC = () => {
 
   const fetchPersonnages = useCallback(async () => {
     try {
-      const response = await axios.get<Personnage[]>('http://localhost:5000/personnages');
+      const response = await axios.get<Personnage[]>(`${API_URL}/personnages`);
       setPersonnages(response.data);
       setFilteredPersonnages(response.data);
       updateFilters(response.data);
@@ -62,7 +63,7 @@ const PersonnagePage: React.FC = () => {
     setError(null);
     try {
       // Ajouter le nouveau personnage
-      const response = await axios.post<Personnage>('http://localhost:5000/personnages', newPersonnage);
+      const response = await axios.post<Personnage>(`${API_URL}/personnages`, newPersonnage);
       const addedPersonnage = response.data;
 
       setPersonnages(prev => [...prev, addedPersonnage]);
@@ -79,7 +80,7 @@ const PersonnagePage: React.FC = () => {
 
   const handleDeletePersonnage = useCallback(async (id: string) => {
     try {
-      await axios.delete(`http://localhost:5000/personnages/${id}`);
+      await axios.delete(`${API_URL}/personnages/${id}`);
       const updatedPersonnages = personnages.filter(p => p._id !== id);
       setPersonnages(updatedPersonnages);
       setFilteredPersonnages(updatedPersonnages);

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Login.css';
+import { API_URL } from '../../utils/constants';
 
 interface LoginProps {
   onLogin: (token: string) => void;
@@ -16,7 +17,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     setError(null);
 
     try {
-      const response = await axios.post('http://localhost:5000/login', { username, password });
+      const response = await axios.post(`${API_URL}/login`, { username, password });
       const { token } = response.data;
       onLogin(token);
       // Le stockage du token est déjà géré dans la fonction handleLogin du composant App

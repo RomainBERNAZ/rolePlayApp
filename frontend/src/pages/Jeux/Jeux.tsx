@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Jeu } from '../../types/jeu';
 import Modal from '../../components/Modal/Modal.tsx';
 import './Jeux.css';
+import { API_URL } from '../../utils/constants';
 
 const Jeux: React.FC = () => {
   const navigate = useNavigate();
@@ -13,7 +14,8 @@ const Jeux: React.FC = () => {
     description: '',
     saisons: [],
     joueurs: [],
-    regles: ''
+    regles: '',
+    personnages: []
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -22,7 +24,7 @@ const Jeux: React.FC = () => {
   const fetchJeux = useCallback(async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get<Jeu[]>('http://localhost:5000/jeux');
+      const response = await axios.get<Jeu[]>(`${API_URL}/jeux`);
       setJeux(response.data);
     } catch (error) {
       console.error('Erreur lors de la récupération des jeux', error);
@@ -44,9 +46,9 @@ const Jeux: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/jeux', nouveauJeu);
+      await axios.post(`${API_URL}/jeux`, nouveauJeu);
       await fetchJeux();
-      setNouveauJeu({ nom: '', description: '', saisons: [], joueurs: [], regles: '' });
+      setNouveauJeu({ nom: '', description: '', saisons: [], joueurs: [], regles: '', personnages: [] });
       setIsModalOpen(false);
     } catch (error) {
       console.error('Erreur lors de la création du jeu', error);

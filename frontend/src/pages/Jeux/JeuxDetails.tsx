@@ -6,6 +6,7 @@ import SubMenu from '../../components/SubMenu/SubMenu.tsx';
 import PersonnageJeu from './PersonnageJeu/PersonnageJeu.tsx';
 import Bestiaire from './Bestiaire/Bestiaire.tsx';
 import './JeuxDetails.css';
+import { API_URL } from '../../utils/constants';
 
 const JeuxDetails: React.FC = () => {
   const location = useLocation();
@@ -15,11 +16,12 @@ const JeuxDetails: React.FC = () => {
   const [activeId, setActiveId] = useState('accueil');
   const [isLoading, setIsLoading] = useState(!location.state?.jeu);
 
+
   useEffect(() => {
     const fetchJeuDetails = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(`http://localhost:5000/jeux/${id}`);
+        const response = await axios.get(`${API_URL}/jeux/${id}`);
         setJeu(response.data);
       } catch (error) {
         console.error('Error fetching game details:', error);

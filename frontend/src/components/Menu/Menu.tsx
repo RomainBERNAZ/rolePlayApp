@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Menu.css';
 import axios from 'axios'; // Assurez-vous d'avoir installé axios
+import { API_URL } from '../../utils/constants';
 
 const Menu = () => {
   const [activeTab, setActiveTab] = useState('accueil');
@@ -28,7 +29,7 @@ const Menu = () => {
       delete axios.defaults.headers.common['token'];
 
       // Envoie une requête de déconnexion au serveur
-      await axios.post('http://localhost:5000/logout', {}, {
+      await axios.post(`${API_URL}/logout`, {}, {
         headers: { 'x-auth-token': null }
       });
 
