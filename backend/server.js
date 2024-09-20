@@ -20,10 +20,10 @@ const isProduction = process.env.NODE_ENV === 'production';
 const MONGODB_URI = isProduction ? process.env.MONGODB_URI_PROD : process.env.MONGODB_URI_DEV;
 
 const app = express();
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
-app.listen(port, () => {
-  console.log(`Serveur en cours d'exécution sur le port ${port}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Serveur en cours d'exécution sur le port ${PORT}`);
 });
 
 // Configuration CORS
@@ -155,8 +155,8 @@ app.get('/', (req, res) => {
 });
 
 // Démarrage du serveur
-app.listen(port, () => {
-  console.log(`Serveur en cours d'exécution sur le port ${port}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Serveur en cours d'exécution sur le port ${PORT}`);
 });
 
 // Ajoutez ceci pour gérer explicitement les requêtes OPTIONS
