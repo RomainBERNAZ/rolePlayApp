@@ -1,4 +1,4 @@
-import Personnage from '../models/personnage.js';
+const Personnage = require('../models/personnage.js');
 
 class PersonnageRepository {
   static async creer(personnageData) {
@@ -45,4 +45,4 @@ class PersonnageRepository {
   }
 }
 
-export default PersonnageRepository;
+module.exports = PersonnageRepository;

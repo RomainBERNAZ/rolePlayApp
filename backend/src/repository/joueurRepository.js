@@ -1,4 +1,4 @@
-import Joueur from '../models/Joueur.js';
+const Joueur = require('../models/Joueur.js');
 
 class JoueurRepository {
   static async creer(joueurData) {
@@ -39,4 +39,4 @@ class JoueurRepository {
   }
 }
 
-export default JoueurRepository;
+module.exports = JoueurRepository;

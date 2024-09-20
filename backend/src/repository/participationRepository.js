@@ -1,4 +1,4 @@
-import Participation from '../models/Participation.js';
+const Participation = require('../models/Participation.js');
 
 class ParticipationRepository {
   static async creer(participationData) {
@@ -41,4 +41,4 @@ class ParticipationRepository {
   }
 }
 
-export default ParticipationRepository;
+module.exports = ParticipationRepository;
