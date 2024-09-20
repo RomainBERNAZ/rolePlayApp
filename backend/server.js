@@ -13,7 +13,8 @@ import seedUsers from './src/utils/seedDatas/seedUsers';
 import seedJeux from './src/utils/seedDatas/seedJeux';
 import seedSaisons from './src/utils/seedDatas/seedSaison';
 
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config(); 
 
 const isProduction = process.env.NODE_ENV === 'production';
 const MONGODB_URI = isProduction ? process.env.MONGODB_URI_PROD : process.env.MONGODB_URI_DEV;
