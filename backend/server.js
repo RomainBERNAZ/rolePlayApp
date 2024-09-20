@@ -28,12 +28,17 @@ app.listen(port, () => {
 // Configuration CORS
 const corsOptions = {
   origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
   optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
 app.use(express.json());
+
+// Ajoutez ceci pour gérer explicitement les requêtes OPTIONS
+app.options('*', cors(corsOptions));
 
 // Connexion à MongoDB
 mongoose.connect(MONGODB_URI, {
@@ -151,4 +156,15 @@ app.get('/', (req, res) => {
 // Démarrage du serveur
 app.listen(port, () => {
   console.log(`Serveur en cours d'exécution sur le port ${port}`);
+});
+
+// Ajoutez ceci pour gérer explicitement les requêtes OPTIONS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', process.env.FRONTEND_URL || 'http://localhost:3000');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
 });
