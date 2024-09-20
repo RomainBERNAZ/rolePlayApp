@@ -3,17 +3,17 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import User from './src/models/User';
-import personnageController from './src/controllers/personnageController';
-import joueurController from './src/controllers/joueurController';
-import jeuController from './src/controllers/jeuController';
-import saisonController from './src/controllers/saisonController';
-import authRoutes from './src/routes/authRoutes';
-import seedUsers from './src/utils/seedDatas/seedUsers';
-import seedJeux from './src/utils/seedDatas/seedJeux';
-import seedSaisons from './src/utils/seedDatas/seedSaison';
-
+import User from './src/models/User.js';
+import personnageController from './src/controllers/personnageController.js';
+import joueurController from './src/controllers/joueurController.js';
+import jeuController from './src/controllers/jeuController.js';
+import saisonController from './src/controllers/saisonController.js';
+import authRoutes from './src/routes/authRoutes.js';
+import seedUsers from './src/utils/seedDatas/seedUsers.js';
+import seedJeux from './src/utils/seedDatas/seedJeux.js';
+import seedSaisons from './src/utils/seedDatas/seedSaison.js';
 import dotenv from 'dotenv';
+
 dotenv.config(); 
 
 const isProduction = process.env.NODE_ENV === 'production';
