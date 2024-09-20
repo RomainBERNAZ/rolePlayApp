@@ -36,7 +36,7 @@ router.post('/register', async (req, res) => {
 });
 
 // Route de connexion
-router.post('/login', async (req, res) => {
+router.post('login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
