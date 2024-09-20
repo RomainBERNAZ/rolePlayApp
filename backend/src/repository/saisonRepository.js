@@ -1,4 +1,4 @@
-const Saison = require('../models/Saison.js');
+import Saison from '../models/Saison.js';
 
 class SaisonRepository {
   static async creer(saisonData) {
@@ -41,4 +41,4 @@ class SaisonRepository {
   }
 }
 
-module.exports = SaisonRepository;
+export default SaisonRepository;
