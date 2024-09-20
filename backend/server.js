@@ -20,11 +20,12 @@ const isProduction = process.env.NODE_ENV === 'production';
 const MONGODB_URI = isProduction ? process.env.MONGODB_URI_PROD : process.env.MONGODB_URI_DEV;
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Serveur en cours d'exécution sur le port ${PORT}`);
-});
+// Remove or comment out this block
+// app.listen(PORT, '0.0.0.0', () => {
+//   console.log(`Serveur en cours d'exécution sur le port ${PORT}`);
+// });
 
 // Configuration CORS
 const corsOptions = {
