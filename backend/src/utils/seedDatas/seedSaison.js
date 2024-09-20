@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const Saison = require('../../models/Saison');
-const Jeu = require('../../models/Jeu');
+import mongoose from 'mongoose'; 
+import Saison from '../../models/Saison.js';
+import Jeu from '../../models/Jeu.js';
 
 async function seedSaisons() {
   try {
@@ -61,4 +61,4 @@ async function seedSaisons() {
   }
 }
 
-module.exports = seedSaisons;
+export default seedSaisons;

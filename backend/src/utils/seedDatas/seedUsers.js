@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const User = require('../../models/User'); // Assurez-vous que le chemin est correct
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
+import User from '../../models/User.js'; // Assurez-vous que le chemin est correct
 
 async function seedUsers() {
   const users = [
@@ -33,4 +33,4 @@ async function seedUsers() {
   }
 }
 
-module.exports = seedUsers;
+export default seedUsers;

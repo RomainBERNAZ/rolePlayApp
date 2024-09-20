@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Joueur = require('../../models/Joueur'); // Assurez-vous que le chemin est correct
+import mongoose from 'mongoose'; 
+import Joueur from '../../models/Joueur.js'; // Assurez-vous que le chemin est correct
 
 async function seedJoueurs() {
   const joueurs = [
@@ -28,4 +28,4 @@ async function seedJoueurs() {
   }
 }
 
-module.exports = seedJoueurs;
+export default seedJoueurs;

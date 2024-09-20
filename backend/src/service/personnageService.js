@@ -1,7 +1,7 @@
-const PersonnageRepository = require('../repository/personnageRepository.js');
-const JoueurRepository = require('../repository/joueurRepository.js');
-const JeuRepository = require('../repository/jeuRepository.js');
-const ParticipationRepository = require('../repository/participationRepository.js');
+import PersonnageRepository from '../repository/personnageRepository.js';
+import JoueurRepository from '../repository/joueurRepository.js';
+import JeuRepository from '../repository/jeuRepository.js';
+import ParticipationRepository from '../repository/participationRepository.js';
 
 class PersonnageService {
   static async creerPersonnage(personnageData) {
@@ -87,4 +87,4 @@ class PersonnageService {
   }
 }
 
-module.exports = PersonnageService;
+export default PersonnageService;

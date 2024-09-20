@@ -1,7 +1,7 @@
-const handleError = require('../utils/errorHandler');
-const JeuService = require('../service/jeuService.js');
+import handleError from '../utils/errorHandler'; 
+import JeuService from '../service/jeuService.js';
 
-exports.creerJeu = async (req, res) => {
+export const creerJeu = async (req, res) => {
   try {
     const nouveauJeu = await JeuService.creerJeu(req.body);
     res.status(201).json(nouveauJeu);
@@ -10,7 +10,7 @@ exports.creerJeu = async (req, res) => {
   }
 };
 
-exports.obtenirJeux = async (req, res) => {
+  export const obtenirJeux = async (req, res) => {
   try {
     const jeux = await JeuService.obtenirJeux();
     res.json(jeux);
@@ -19,7 +19,7 @@ exports.obtenirJeux = async (req, res) => {
   }
 };
 
-exports.obtenirJeuParId = async (req, res) => {
+export const obtenirJeuParId = async (req, res) => {
   try {
     const jeu = await JeuService.obtenirJeuParId(req.params.id);
     res.json(jeu);
@@ -28,7 +28,7 @@ exports.obtenirJeuParId = async (req, res) => {
   }
 };
 
-exports.mettreAJourJeu = async (req, res) => {
+export const mettreAJourJeu = async (req, res) => {
   try {
     const jeu = await JeuService.mettreAJourJeu(req.params.id, req.body);
     res.json(jeu);
@@ -37,7 +37,7 @@ exports.mettreAJourJeu = async (req, res) => {
   }
 };
 
-exports.supprimerJeu = async (req, res) => {
+export const supprimerJeu = async (req, res) => {
   try {
     await JeuService.supprimerJeu(req.params.id);
     res.json({ message: "Jeu supprimé avec succès" });
@@ -46,7 +46,7 @@ exports.supprimerJeu = async (req, res) => {
   }
 };
 
-exports.retirerJoueur = async (req, res) => {
+export const retirerJoueur = async (req, res) => {
   try {
     const { id, playerId } = req.params;
     const jeuMisAJour = await JeuService.retirerJoueur(id, playerId);
@@ -56,7 +56,7 @@ exports.retirerJoueur = async (req, res) => {
   }
 };
 
-exports.ajouterPersonnage = async (req, res) => {
+export const ajouterPersonnage = async (req, res) => {
   try {
     const { id } = req.params;
     const { personnageId } = req.body;
@@ -67,7 +67,7 @@ exports.ajouterPersonnage = async (req, res) => {
   }
 };
 
-exports.retirerPersonnage = async (req, res) => {
+export const retirerPersonnage = async (req, res) => {
   try {
     const { id, personnageId } = req.params;
     const jeuMisAJour = await JeuService.retirerPersonnage(id, personnageId);

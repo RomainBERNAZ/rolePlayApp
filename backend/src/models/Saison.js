@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'; 
 
 const saisonSchema = new mongoose.Schema({
   numero: { type: Number, required: true },
@@ -7,4 +7,4 @@ const saisonSchema = new mongoose.Schema({
   jeu: { type: mongoose.Schema.Types.ObjectId, ref: 'Jeu', required: true }
 });
 
-module.exports = mongoose.model('Saison', saisonSchema);
+export default mongoose.model('Saison', saisonSchema);

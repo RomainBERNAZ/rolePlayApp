@@ -1,7 +1,7 @@
-const PersonnageService = require('../service/personnageService.js');
-const handleError = require('../utils/errorHandler');
+import PersonnageService from '../service/personnageService.js';
+import handleError from '../utils/errorHandler';
 
-exports.creerPersonnage = async (req, res) => {
+export const creerPersonnage = async (req, res) => {
   try {
     const nouveauPersonnage = await PersonnageService.creerPersonnage(req.body);
     res.status(201).json(nouveauPersonnage);
@@ -10,7 +10,7 @@ exports.creerPersonnage = async (req, res) => {
   }
 };
 
-exports.mettreAJourPersonnage = async (req, res) => {
+export const mettreAJourPersonnage = async (req, res) => {
   try {
     const { id } = req.params;
     const personnageMisAJour = await PersonnageService.mettreAJourPersonnage(id, req.body);
@@ -23,7 +23,7 @@ exports.mettreAJourPersonnage = async (req, res) => {
   }
 };
 
-exports.supprimerPersonnage = async (req, res) => {
+export const supprimerPersonnage = async (req, res) => {
   try {
     const resultat = await PersonnageService.supprimerPersonnage(req.params.id);
     if (resultat) {
@@ -36,7 +36,7 @@ exports.supprimerPersonnage = async (req, res) => {
   }
 };
 
-exports.obtenirPersonnages = async (req, res) => {
+export const obtenirPersonnages = async (req, res) => {
   try {
     const personnages = await PersonnageService.obtenirPersonnages();
     res.json(personnages);
@@ -45,7 +45,7 @@ exports.obtenirPersonnages = async (req, res) => {
   }
 };
 
-exports.obtenirPersonnageParId = async (req, res) => {
+export const obtenirPersonnageParId = async (req, res) => {
   try {
     const personnage = await PersonnageService.obtenirPersonnageParId(req.params.id);
     if (personnage) {

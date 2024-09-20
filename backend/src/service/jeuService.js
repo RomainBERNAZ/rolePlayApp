@@ -1,4 +1,4 @@
-const JeuRepository = require('../repository/jeuRepository.js');
+import JeuRepository from '../repository/jeuRepository.js';
 
 class JeuService {
   static async creerJeu(jeuData) {
@@ -67,4 +67,4 @@ class JeuService {
   }
 }
 
-module.exports = JeuService;
+export default JeuService;

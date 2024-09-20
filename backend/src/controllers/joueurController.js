@@ -1,8 +1,8 @@
-const JoueurService = require('../service/joueurService.js');
-const handleError = require('../utils/errorHandler');
+import JoueurService from '../service/joueurService.js';
+import handleError from '../utils/errorHandler';
 
 // Fonction pour créer un joueur
-exports.creerJoueur = async (req, res) => {
+export const creerJoueur = async (req, res) => {
   try {
     const nouveauJoueur = await JoueurService.creerJoueur(req.body);
     res.status(201).json(nouveauJoueur);
@@ -12,7 +12,7 @@ exports.creerJoueur = async (req, res) => {
 };
 
 // Fonction pour récupérer tous les joueurs
-exports.obtenirJoueurs = async (req, res) => {
+export const obtenirJoueurs = async (req, res) => {
   try {
     const joueurs = await JoueurService.obtenirJoueurs();
     res.json(joueurs);
@@ -22,7 +22,7 @@ exports.obtenirJoueurs = async (req, res) => {
 };
 
 // Fonction pour récupérer un joueur par son ID
-exports.obtenirJoueurParId = async (req, res) => {
+export const obtenirJoueurParId = async (req, res) => {
   try {
     const joueur = await JoueurService.obtenirJoueurParId(req.params.id);
     if (joueur) {
@@ -36,7 +36,7 @@ exports.obtenirJoueurParId = async (req, res) => {
 };
 
 // Fonction pour mettre à jour un joueur
-exports.mettreAJourJoueur = async (req, res) => {
+export const mettreAJourJoueur = async (req, res) => {
   try {
     const joueur = await JoueurService.mettreAJourJoueur(req.params.id, req.body);
     if (joueur) {
@@ -50,7 +50,7 @@ exports.mettreAJourJoueur = async (req, res) => {
 };
 
 // Fonction pour supprimer un joueur
-exports.supprimerJoueur = async (req, res) => {
+export const supprimerJoueur = async (req, res) => {
   try {
     const resultat = await JoueurService.supprimerJoueur(req.params.id);
     if (resultat) {

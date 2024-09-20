@@ -1,5 +1,5 @@
-const JoueurRepository = require('../repository/joueurRepository.js');
-const PersonnageRepository = require('../repository/personnageRepository.js');
+import JoueurRepository from '../repository/joueurRepository.js';
+import PersonnageRepository from '../repository/personnageRepository.js';
 
 class JoueurService {
   static async creerJoueur(joueurData) {
@@ -37,4 +37,4 @@ class JoueurService {
   }
 }
 
-module.exports = JoueurService;
+export default JoueurService;

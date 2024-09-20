@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const participationSchema = new mongoose.Schema({
   personnage: { type: mongoose.Schema.Types.ObjectId, ref: 'Personnage' },
@@ -12,4 +12,4 @@ const participationSchema = new mongoose.Schema({
   // Autres champs nécessaires
 }, { timestamps: true });
 
-module.exports = mongoose.model('Participation', participationSchema);
+export default mongoose.model('Participation', participationSchema);

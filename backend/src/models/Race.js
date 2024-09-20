@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'; 
 
 const RaceSchema = new mongoose.Schema({
   name: {
@@ -13,4 +13,4 @@ const RaceSchema = new mongoose.Schema({
   // Ajoutez d'autres champs si nécessaire
 });
 
-module.exports = mongoose.model('User', RaceSchema);
+export default mongoose.model('User', RaceSchema);

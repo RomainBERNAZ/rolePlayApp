@@ -1,7 +1,7 @@
-const SaisonService = require('../service/saisonService.js');
-const handleError = require('../utils/errorHandler');
+import SaisonService from '../service/saisonService.js';
+import handleError from '../utils/errorHandler';
 
-exports.creerSaison = async (req, res) => {
+export const creerSaison = async (req, res) => {
   try {
     const nouvelleSaison = await SaisonService.creerSaison(req.body);
     res.status(201).json(nouvelleSaison);
@@ -10,7 +10,7 @@ exports.creerSaison = async (req, res) => {
   }
 };
 
-exports.obtenirSaisons = async (req, res) => {
+export const obtenirSaisons = async (req, res) => {
   try {
     const saisons = await SaisonService.obtenirSaisons();
     res.json(saisons);
@@ -19,7 +19,7 @@ exports.obtenirSaisons = async (req, res) => {
   }
 };
 
-exports.obtenirSaisonParId = async (req, res) => {
+export const obtenirSaisonParId = async (req, res) => {
   try {
     const saison = await SaisonService.obtenirSaisonParId(req.params.id);
     if (!saison) return res.status(404).json({ message: "Saison non trouvée" });
@@ -29,7 +29,7 @@ exports.obtenirSaisonParId = async (req, res) => {
   }
 };
 
-exports.mettreAJourSaison = async (req, res) => {
+export const mettreAJourSaison = async (req, res) => {
   try {
     const saison = await SaisonService.mettreAJourSaison(req.params.id, req.body);
     if (!saison) return res.status(404).json({ message: "Saison non trouvée" });
@@ -39,7 +39,7 @@ exports.mettreAJourSaison = async (req, res) => {
   }
 };
 
-exports.supprimerSaison = async (req, res) => {
+export const supprimerSaison = async (req, res) => {
   try {
     const resultat = await SaisonService.supprimerSaison(req.params.id);
     if (!resultat) return res.status(404).json({ message: "Saison non trouvée" });
@@ -49,7 +49,7 @@ exports.supprimerSaison = async (req, res) => {
   }
 };
 
-exports.ajouterPersonnage = async (req, res) => {
+export const ajouterPersonnage = async (req, res) => {
   try {
     const saison = await SaisonService.ajouterPersonnage(req.params.id, req.body.personnageId);
     if (!saison) return res.status(404).json({ message: "Saison non trouvée" });
@@ -59,7 +59,7 @@ exports.ajouterPersonnage = async (req, res) => {
   }
 };
 
-exports.retirerPersonnage = async (req, res) => {
+export const retirerPersonnage = async (req, res) => {
   try {
     const saison = await SaisonService.retirerPersonnage(req.params.id, req.body.personnageId);
     if (!saison) return res.status(404).json({ message: "Saison non trouvée" });

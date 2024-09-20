@@ -1,17 +1,17 @@
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const User = require('./src/models/User');
-const personnageController = require('./src/controllers/personnageController');
-const joueurController = require('./src/controllers/joueurController');
-const jeuController = require('./src/controllers/jeuController');
-const saisonController = require('./src/controllers/saisonController');
-const authRoutes = require('./src/routes/authRoutes');
-const seedUsers = require('./src/utils/seedDatas/seedUsers');
-const seedJeux = require('./src/utils/seedDatas/seedJeux');
-const seedSaisons = require('./src/utils/seedDatas/seedSaison');
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import User from './src/models/User';
+import personnageController from './src/controllers/personnageController';
+import joueurController from './src/controllers/joueurController';
+import jeuController from './src/controllers/jeuController';
+import saisonController from './src/controllers/saisonController';
+import authRoutes from './src/routes/authRoutes';
+import seedUsers from './src/utils/seedDatas/seedUsers';
+import seedJeux from './src/utils/seedDatas/seedJeux';
+import seedSaisons from './src/utils/seedDatas/seedSaison';
 
 require('dotenv').config();
 
@@ -168,3 +168,5 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+export default app;

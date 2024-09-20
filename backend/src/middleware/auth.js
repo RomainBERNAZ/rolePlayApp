@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken');
-const authRoutes = require('../routes/auth');
+import jwt from 'jsonwebtoken';  
+import authRoutes from '../routes/auth';
 
-module.exports = function(req, res, next) {
+export default function(req, res, next) {
   const token = req.header('x-auth-token');
   if (!token) return res.status(401).json({ message: "Pas de token, autorisation refusée" });
 

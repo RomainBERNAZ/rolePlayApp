@@ -3,4 +3,4 @@ const handleError = (res, error, statusCode = 500) => {
     res.status(statusCode).json({ message: error.message });
   };
   
-module.exports = handleError;
+export default handleError;

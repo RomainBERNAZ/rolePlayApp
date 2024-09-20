@@ -1,5 +1,5 @@
-const Jeu = require('../../models/Jeu'); 
-const Saison = require('../../models/Saison');
+import Jeu from '../../models/Jeu.js'; 
+import Saison from '../../models/Saison.js';
 
 async function seedJeux() {
   const jeux = [
@@ -80,5 +80,5 @@ async function seedJeux() {
   }
 }
 
-module.exports = seedJeux;
+export default seedJeux;
 

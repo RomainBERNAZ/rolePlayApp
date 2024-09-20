@@ -1,5 +1,5 @@
-const SaisonRepository = require('../repository/saisonRepository.js');
-const JeuRepository = require('../repository/jeuRepository.js');
+import SaisonRepository from '../repository/saisonRepository.js';
+import JeuRepository from '../repository/jeuRepository.js';
 
 class SaisonService {
   static async creerSaison(saisonData) {
@@ -37,4 +37,4 @@ class SaisonService {
   }
 }
 
-module.exports = SaisonService;
+export default SaisonService;

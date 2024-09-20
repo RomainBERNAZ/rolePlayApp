@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'; 
 
 // Mise à jour du schéma de personnage
 const personnageSchema = new mongoose.Schema({
@@ -16,4 +16,4 @@ const personnageSchema = new mongoose.Schema({
 
 const Personnage = mongoose.model('Personnage', personnageSchema);
 
-module.exports = Personnage;
+export default Personnage;
