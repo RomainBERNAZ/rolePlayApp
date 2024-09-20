@@ -49,9 +49,7 @@ mongoose.connect(MONGODB_URI, {
 })
 .then(() => {
   console.log(`Connecté à MongoDB ${isProduction ? 'Atlas' : 'local'}`);
-  if (!isProduction) {
     return Promise.all([seedJeux(), seedSaisons(), seedUsers()]);
-  }
 })
 .then(() => {
   if (!isProduction) {
