@@ -12,7 +12,8 @@ class PersonnageRepository {
         path: 'participations',
         populate: { path: 'jeu' }
       })
-      .populate('joueur');
+      .populate('joueur')
+      .populate('classe');
   }
 
   static async obtenirParId(id) {
@@ -21,7 +22,8 @@ class PersonnageRepository {
         path: 'participations',
         populate: { path: 'jeu' }
       })
-      .populate('joueur');
+      .populate('joueur')
+      .populate('classe');
   }
 
   static async mettreAJour(id, donnees) {

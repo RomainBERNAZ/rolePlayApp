@@ -17,6 +17,7 @@ const PersonnagePage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filters, setFilters] = useState({ classes: [], saisons: [], nomJdrs: [] });
+  const [searchTerm, setSearchTerm] = useState('');
 
   const fetchPersonnages = useCallback(async () => {
     try {
@@ -50,13 +51,15 @@ const PersonnagePage: React.FC = () => {
 
   const handleFilterChange = useCallback((selectedOptions: MultiValue<OptionType>, filterType: string) => {
     const selectedValues = selectedOptions.map(option => option.value);
-    setFilteredPersonnages(personnages.filter(personnage => {
-      const matchesClasse = filterType === 'classes' ? selectedValues.length === 0 || selectedValues.includes(personnage.classe) : true;
+    const filtered = personnages.filter(personnage => {
+      const matchesClasse = filterType === 'classes' ? selectedValues.length === 0 || selectedValues.includes(personnage.classe.nom) : true;
       const matchesSaison = filterType === 'saisons' ? selectedValues.length === 0 || (personnage.saison && selectedValues.includes(personnage.saison)) : true;
       const matchesJoueur = filterType === 'joueurs' ? selectedValues.length === 0 || (personnage.joueur && selectedValues.includes(personnage.joueur.nom)) : true;
-      return matchesClasse && matchesSaison && matchesJoueur;
-    }));
-  }, [personnages]);
+      const matchesNom = personnage.nom.toLowerCase().startsWith(searchTerm.toLowerCase()); // Filtrage par nom
+      return matchesClasse && matchesSaison && matchesJoueur && matchesNom; // Inclure le filtrage par nom
+    });
+    setFilteredPersonnages(filtered);
+  }, [personnages, searchTerm]);
 
   const handleAddPersonnage = useCallback(async (newPersonnage: Omit<Personnage, '_id'>) => {
     setIsLoading(true);
@@ -101,7 +104,12 @@ const PersonnagePage: React.FC = () => {
         Créer un nouveau personnage
       </button>
 
-      <FilterSection personnages={personnages} onFilterChange={handleFilterChange} />
+      <FilterSection 
+        personnages={personnages} 
+        onFilterChange={handleFilterChange} 
+        searchTerm={searchTerm} // Passer le terme de recherche
+        setSearchTerm={setSearchTerm} // Passer la fonction pour mettre à jour le terme de recherche
+      />
 
       <PersonnageList 
         personnages={filteredPersonnages} 

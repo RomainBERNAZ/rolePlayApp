@@ -7,7 +7,10 @@ class JoueurRepository {
   }
 
   static async obtenirTous() {
-    return Joueur.find().populate('personnages');
+    return Joueur.find().populate({
+      path: 'personnages',
+      populate: { path: 'classe' }
+    });
   }
 
   static async obtenirParId(id) {

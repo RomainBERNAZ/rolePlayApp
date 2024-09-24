@@ -10,7 +10,14 @@ class JeuRepository {
     return await Jeu.find()
       .populate('joueurs', 'nom')
       .populate('saisons')
-      .populate('personnages');
+      .populate({
+        path: 'personnages',
+        select: 'nom classe race saison joueur',
+        populate: {
+          path: 'classe',
+          select: 'nom'
+        }
+      });
   }
 
   static async obtenirParId(id) {

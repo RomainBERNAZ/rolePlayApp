@@ -70,3 +70,14 @@
 .personnage-table button:hover {
   background-color: var(--danger-hover-color);
 }
+
+@media (max-width: 768px) {
+  .personnage-table th:nth-child(2),
+  .personnage-table th:nth-child(3),
+  .personnage-table th:nth-child(5),
+  .personnage-table td:nth-child(2),
+  .personnage-table td:nth-child(3),
+  .personnage-table td:nth-child(5) {
+    display: none;
+  }
+}

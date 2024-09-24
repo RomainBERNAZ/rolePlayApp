@@ -1,5 +1,6 @@
 .personnage-detail {
-    max-width: 600px;
+    max-width: 800px;
+    height: 70vh;
     margin: 0 auto;
     padding: 20px;
     background-color: var(--light-bg-color);
@@ -12,15 +13,25 @@
     margin-bottom: 20px;
 }
 
+.personnage-container-3d {
+    display: flex;
+    height: 50vh;
+}
+
 .personnage-info {
     background-color: white;
     padding: 15px;
+    width: 40%;
     border-radius: 4px;
     margin-bottom: 20px;
 }
 
 .personnage-info p {
     margin: 10px 0;
+}
+
+.model3d{
+    width: 60%;
 }
 
 button[type="button"] {

@@ -12,7 +12,7 @@ const Home: React.FC<HomeProps> = ({ onLogin, isLoggedIn }) => {
     <div className="home">
       {isLoggedIn ? (
         <div className="prequel">
-          <h1>Bienvenue dans Prequel : Le Jeu de Rôle des Origines</h1>
+          <h1>Bienvenue dans RPAPP : Le Jeu de Rôle des Origines</h1>
           <section className="game-description">
             <p>Plongez dans les histoires d'origine de personnages légendaires. Explorez les événements qui ont façonné les héros et les vilains avant qu'ils ne deviennent célèbres.</p>
             
@@ -31,10 +31,6 @@ const Home: React.FC<HomeProps> = ({ onLogin, isLoggedIn }) => {
               <li>Les premières missions d'un futur agent secret</li>
               <li>L'ascension d'un politicien ambitieux</li>
             </ol>
-          </section>
-          <section className="map-section">
-            <h2>Carte du monde</h2>
-            <img src="/images/map.png" alt="Carte du monde de Prequel" className="world-map" />
           </section>
         </div>
       ) : (

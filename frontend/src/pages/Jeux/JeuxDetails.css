@@ -130,3 +130,9 @@ button:hover {
 .remove-player-btn:hover {
   background-color: var(--danger-hover-color);
 }
+
+.submenu-container {
+  display: flex;
+  justify-content: center; /* Centre horizontalement */
+  margin: 20px 0; /* Optionnel : ajoute un espacement vertical */
+}

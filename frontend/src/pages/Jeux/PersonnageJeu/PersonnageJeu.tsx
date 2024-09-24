@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import Table from '../../../components/Table/Table.tsx';
 import Modal from '../../../components/Modal/Modal.tsx';
@@ -8,6 +8,7 @@ import { useJoueurs } from '../../../components/Hooks/useJoueurs.tsx';
 import { API_URL } from '../../../utils/constants';
 import { useAddPersonnageToJeu } from '../../../components/Hooks/useAddPersonnageToJeu.tsx';
 import { createPersonnageColumns } from '../../../components/Table/personnageColumns.tsx';
+import { UserContext } from '../../../contexts/UserContext.tsx';
 
 interface PersonnageJeuProps {
     jeuId: string;
@@ -21,7 +22,7 @@ const PersonnageJeu: React.FC<PersonnageJeuProps> = ({ jeuId, jeu, setJeu }) => 
     const allCharacters = usePersonnages();
     const players = useJoueurs();
     const { addPersonnageToJeu, isLoading, error } = useAddPersonnageToJeu(jeuId, setJeu);
-
+    const { isAdmin } = useContext(UserContext) || {};
     const handleAddCharacter = () => {
         setShowModal(true);
     };
@@ -56,13 +57,14 @@ const PersonnageJeu: React.FC<PersonnageJeuProps> = ({ jeuId, jeu, setJeu }) => 
     };
 
     const characterColumns = createPersonnageColumns(players, handleRemoveCharacter);
-
     return (
         <div className="characters-container">
             <h2>Personnages de {jeu.nom}</h2> 
-            <button onClick={handleAddCharacter} className="add-character-btn">
-                Ajouter un personnage existant
-            </button>
+            {isAdmin && (
+                <button onClick={handleAddCharacter} className="add-character-btn">
+                    Ajouter un personnage existant
+                </button>
+            )}
             {jeu.personnages && jeu.personnages.length > 0 ? (
                 <Table
                     data={jeu.personnages}

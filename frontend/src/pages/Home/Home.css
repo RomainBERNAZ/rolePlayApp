@@ -15,3 +15,26 @@
 .game-description ul, .game-description ol {
   margin-left: 20px;
 }
+
+@media (max-width: 768px) {
+  .home {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+  .game-description {
+    margin-bottom: 15px; /* Réduction de la marge pour s'adapter à la taille du h1 */
+  }
+
+  .game-description h2 {
+    margin-top: 10px; /* Réduction de la marge pour s'adapter à la taille du h1 */
+    font-size: 15px; /* Ajustement de la taille de la police pour s'adapter à la taille du h1 */
+  }
+
+  .game-description ul, .game-description ol {
+    margin-left: 10px;
+    font-size: 12px; /* Ajustement de la taille de la police pour s'adapter à la taille du h1 */
+  }
+}

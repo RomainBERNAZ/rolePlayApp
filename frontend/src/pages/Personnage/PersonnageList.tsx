@@ -30,7 +30,7 @@ const PersonnageList: React.FC<PersonnageListProps> = ({ personnages, onDelete }
             <td>
               <Link to={`/personnage/${personnage._id}`}>{personnage.nom}</Link>
             </td>
-            <td>{personnage.classe}</td>
+            <td>{personnage.classe.nom}</td>
             <td>{personnage.race}</td>
             <td>
               {personnage.participations?.map((participation, index) => (

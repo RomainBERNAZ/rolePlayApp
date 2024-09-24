@@ -70,7 +70,9 @@ const JeuxDetails: React.FC = () => {
   return (
     <div className="jeu-details-container">
       <h1>{jeu?.nom}</h1>
-      <SubMenu items={subMenuItems} activeId={activeId} setActiveId={setActiveId} />
+      <div className="submenu-container"> 
+        <SubMenu items={subMenuItems} activeId={activeId} setActiveId={setActiveId} />
+      </div>
       
       {renderContent}
 

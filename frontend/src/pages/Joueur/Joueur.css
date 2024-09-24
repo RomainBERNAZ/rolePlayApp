@@ -56,3 +56,10 @@
 .bouton-supprimer:hover {
   background-color: var(--danger-hover-color);
 }
+
+@media (max-width: 768px) {
+  .joueur-table th:nth-child(2),
+  .joueur-table td:nth-child(2) {
+    display: none;
+  }
+}

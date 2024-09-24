@@ -13,6 +13,7 @@ export const useJoueurs = () => {
         const playersMap = response.data.reduce((acc, player) => {
           acc[player._id] = player.nom;
           return acc;
+          
         }, {} as Record<string, string>);
         setPlayers(playersMap);
       } catch (error) {
@@ -22,6 +23,5 @@ export const useJoueurs = () => {
 
     fetchPlayers();
   }, []);
-
   return players;
 };

@@ -1,14 +1,16 @@
 import { Jeu } from "./jeu";
 import Saison from "./saison";
 import Joueur from "./joueur";
+import { Classe } from "./classe";
 
 interface Personnage {
   readonly _id?: string;
   nom: string;
-  classe: string;
+  classe: Classe;
   race: string;
   niveau: number;
   pointsDeVie: number;
+  experienceDisponible: number;
   equipement: readonly string[];
   competences: readonly string[];
   participations: readonly Participation[];

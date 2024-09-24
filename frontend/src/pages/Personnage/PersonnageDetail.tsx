@@ -4,6 +4,7 @@ import axios from 'axios';
 import './PersonnageDetail.css';
 import Personnage from '../../types/personnage';
 import { API_URL } from '../../utils/constants';
+import Model3D from '../../components/Model3D/Model3d.tsx'; // Ajout de l'import
 
 const PersonnageDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -60,7 +61,7 @@ const PersonnageDetail: React.FC = () => {
 
   return (
     <div className="personnage-detail">
-      <h1>{personnage.nom}</h1>
+      <h1>{personnage.nom} - lvl {personnage.niveau}</h1>
       {isEditing ? (
         <form onSubmit={handleSubmit}>
           <input
@@ -72,7 +73,7 @@ const PersonnageDetail: React.FC = () => {
           <input
             type="text"
             name="classe"
-            value={editedPersonnage?.classe || ''}
+            value={editedPersonnage?.classe.nom || ''}
             onChange={handleChange}
           />
           <input
@@ -93,16 +94,22 @@ const PersonnageDetail: React.FC = () => {
             value={editedPersonnage?.race || ''}
             onChange={handleChange}
           />
+
           <button type="submit">Enregistrer</button>
           <button type="button" onClick={() => setIsEditing(false)}>Annuler</button>
         </form>
       ) : (
-        <div className="personnage-info">
-          <p><strong>Classe:</strong> {personnage.classe}</p>
-          <p><strong>Race:</strong> {personnage.race}</p>
-          {personnage.saison && <p><strong>Saison:</strong> {personnage.saison}</p>}
-          {personnage.nomJdr && <p><strong>Nom du JDR:</strong> {personnage.nomJdr}</p>}
-          <button onClick={handleEdit}>Modifier</button>
+        <div className="personnage-container-3d">
+          <div className="personnage-info">
+            <p><strong>Race:</strong> {personnage.race}</p>
+            <p><strong>Classe:</strong> {personnage.classe.nom}</p>
+            {personnage.saison && <p><strong>Saison:</strong> {personnage.saison}</p>}
+            {personnage.pointsDeVie && <p><strong>Point de vie:</strong> {personnage.pointsDeVie}</p>}
+            <button onClick={handleEdit}>Modifier</button>
+          </div>
+          <div className="model3d">
+            <Model3D modelPath="/images/Body.glb" />
+          </div>
         </div>
       )}
       <Link to="/personnages" className="bouton-retour">Retour à la liste</Link>

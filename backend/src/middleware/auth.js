@@ -1,14 +1,20 @@
-import jwt from 'jsonwebtoken';  
+import jwt from 'jsonwebtoken';
 
-export default function(req, res, next) {
-  const token = req.header('x-auth-token');
-  if (!token) return res.status(401).json({ message: "Pas de token, autorisation refusée" });
+export const invalidatedTokens = new Set();
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded.user;
-    next();
-  } catch (err) {
-    res.status(401).json({ message: "Token non valide" });
+export const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) {
+    return res.status(403).json({ message: "Un token est requis pour l'authentification" });
   }
+  try {
+    if (invalidatedTokens.has(token)) {
+      return res.status(401).json({ message: "Token invalide" });
+    }
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+  } catch (err) {
+    return res.status(401).json({ message: "Token invalide" });
+  }
+  return next();
 };

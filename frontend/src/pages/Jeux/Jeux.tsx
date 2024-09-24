@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Jeu } from '../../types/jeu';
 import Modal from '../../components/Modal/Modal.tsx';
 import './Jeux.css';
 import { API_URL } from '../../utils/constants';
-
+import { UserContext } from '../../contexts/UserContext.tsx';
 const Jeux: React.FC = () => {
   const navigate = useNavigate();
   const [jeux, setJeux] = useState<Jeu[]>([]);
@@ -20,6 +20,7 @@ const Jeux: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { isAdmin } = useContext(UserContext) || {};
 
   const fetchJeux = useCallback(async () => {
     try {
@@ -71,7 +72,9 @@ const Jeux: React.FC = () => {
   return (
     <div className="jeux-container">
       <h1>Gestion des Jeux de Rôle</h1>
-      <button onClick={() => setIsModalOpen(true)} className="create-button">Créer un nouveau jeu</button>
+      {isAdmin && (
+        <button onClick={() => setIsModalOpen(true)} className="create-button">Créer un nouveau jeu</button>
+      )}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <form onSubmit={handleSubmit} className="jeu-form">
           <input

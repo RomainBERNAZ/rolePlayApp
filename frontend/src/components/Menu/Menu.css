@@ -5,6 +5,7 @@
     padding: 20px 0; /* Augmente le padding vertical */
     width: 100%; /* Assure que le menu prend toute la largeur */
     font-family: 'Poppins', sans-serif; /* Utilise la police Poppins */
+    position: relative;
 }
 
 .tab-menu ul {
@@ -31,10 +32,73 @@
     font-weight: 600; /* Police en semi-gras pour plus d'impact */
     text-transform: uppercase; /* Texte en majuscules pour un look plus stylisé */
     letter-spacing: 1px; /* Espacement des lettres pour un aspect plus aéré */
+    color: white; /* Ajout de la couleur du texte par défaut */
 }
 
 .tab-menu button:hover,
 .tab-menu button.active {
     background-color: var(--danger-color); /* Rouge carmin */
     color: white;
+}
+
+.mobile-menu-button {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.tab-menu ul li {
+    margin-right: 10px;
+}
+
+.tab-menu ul li button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.tab-menu ul li button.active {
+    font-weight: bold;
+}
+
+.logout-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-button {
+        display: block;
+    }
+
+    .tab-menu ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 40px;
+        left: 0;
+        background: white;
+        width: 100%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000; /* Ajout de z-index pour assurer que le menu est au premier plan */
+    }
+
+    .tab-menu ul.open {
+        display: flex;
+    }
+
+    .tab-menu ul li {
+        margin: 0;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .tab-menu ul li button {
+        width: 100%;
+        text-align: left;
+        padding: 10px;
+        color: black; /* Ajout de la couleur du texte en version mobile */
+    }
 }

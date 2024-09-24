@@ -4,7 +4,8 @@
   border-radius: 5px;
   padding: 15px;
   margin-bottom: 20px;
-  width: 30%;
+  width: 100%; /* Change width to 100% */
+  max-width: 30%; /* Add max-width to maintain original width on larger screens */
   box-sizing: border-box;
 }
 
@@ -17,4 +18,10 @@
 
 .filter-section .react-select__control {
   margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+  .filter-section {
+    max-width: 100%; /* Ensure full width on smaller screens */
+  }
 }
