@@ -16,6 +16,7 @@ import './App.css';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Ajoute l'état de chargement
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -23,6 +24,7 @@ const App = () => {
       setIsLoggedIn(true);
       setupAxiosInterceptors();
     }
+    setIsLoading(false); // Quand la vérification est terminée
   }, []);
 
   const handleLogin = (token, user) => {
@@ -43,6 +45,11 @@ const App = () => {
         console.error('Échec de l\'enregistrement du Service Worker:', error);
       });
     });
+  }
+
+  // Ne pas afficher les routes tant que la vérification n'est pas terminée
+  if (isLoading) {
+    return <div>Chargement...</div>;
   }
 
   return (
@@ -70,14 +77,14 @@ const App = () => {
             <Route path="/jeux" element={
               isLoggedIn ? <Jeux /> : <Navigate to="/" />
             } />
-            <Route path="/jeux/:id" element={<JeuxDetails />} />
+            <Route path="/jeux/:id" element={
+              isLoggedIn ? <JeuxDetails /> : <Navigate to="/" />
+            } />
           </Routes>
         </div>
       </Router>
     </UserProvider>
   );
 };
-
-
 
 export default App;

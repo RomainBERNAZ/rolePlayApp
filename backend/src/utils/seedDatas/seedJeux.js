@@ -1,12 +1,13 @@
 import Jeu from '../../models/Jeu.js'; 
 import Saison from '../../models/Saison.js';
+import Classe from '../../models/Classe.js'; // Assuming Classe model is defined elsewhere
 
 async function seedJeux() {
   const jeux = [
     {
       nom: 'L\'Épopée Fantastique',
       description: 'Un jeu de rôle médiéval-fantastique rempli d\'aventures épiques',
-      statut: 'en_preparation',
+      statut: 'en_preparation', 
       saisons: [
         { numero: 1, nom: 'L\'Éveil des Héros', description: 'Le début de l\'aventure', titre: 'Saison 1' },
         { numero: 2, nom: 'La Quête du Dragon', description: 'La suite épique', titre: 'Saison 2' }
@@ -38,6 +39,10 @@ async function seedJeux() {
       saisons: [
         { numero: 1, nom: 'Les Îles Perdues', description: 'Exploration d\'îles mystérieuses' },
         { numero: 2, nom: 'La Mer des Sables', description: 'Aventure dans un désert océanique' }
+      ],
+      classes: [ // Ajout des classes pour ce jeu
+        { nom: 'Navigateur', description: 'Expert en navigation et exploration' },
+        { nom: 'Chasseur de Trésors', description: 'Spécialiste de la recherche de trésors' }
       ]
     }
   ];
@@ -66,8 +71,19 @@ async function seedJeux() {
           return nouvelleSaison._id;
         }));
 
-        // Mettre à jour le jeu avec les IDs des saisons
+        // Créer les classes
+        const classeIds = await Promise.all(jeuData.classes.map(async (classe) => { // Ajout de la création des classes
+          const nouvelleClasse = new Classe({
+            ...classe,
+            jeu: nouveauJeu._id
+          });
+          await nouvelleClasse.save();
+          return nouvelleClasse._id;
+        }));
+
+        // Mettre à jour le jeu avec les IDs des saisons et des classes
         nouveauJeu.saisons = saisonIds;
+        nouveauJeu.classes = classeIds;
         await nouveauJeu.save();
 
         console.log(`Jeu créé : ${jeuData.nom}`);

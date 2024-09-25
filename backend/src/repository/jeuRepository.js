@@ -10,6 +10,7 @@ class JeuRepository {
     return await Jeu.find()
       .populate('joueurs', 'nom')
       .populate('saisons')
+      .populate('classes')
       .populate({
         path: 'personnages',
         select: 'nom classe race saison joueur',
@@ -24,14 +25,16 @@ class JeuRepository {
     return await Jeu.findById(id)
       .populate('joueurs', 'nom email')
       .populate('personnages')
-      .populate('saisons', '_id numero');
+      .populate('saisons', '_id numero')
+      .populate('classes');
   }
 
   static async obtenirParIdAvecPopulate(id) {
     return await Jeu.findById(id)
       .populate('joueurs', 'nom email')
       .populate('personnages')
-      .populate('saisons', '_id numero');
+      .populate('saisons', '_id numero')
+      .populate('classes');
   }
 
   static async mettreAJour(id, jeuData) {

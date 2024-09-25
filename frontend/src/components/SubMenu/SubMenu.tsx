@@ -14,11 +14,10 @@ interface SubMenuProps {
   setActiveId: (id: string) => void;
 }
 
-const SubMenu: React.FC<SubMenuProps> = ({ items, activeId, setActiveId }) => {
+const SubMenu: React.FC<SubMenuProps> = ({ items, activeId, setActiveId }) => { // Ajout de activeId et setActiveId
   const navigate = useNavigate();
 
   const handleItemClick = (id: string, path: string) => {
-    setActiveId(id);
     navigate(path);
   };
 
@@ -28,8 +27,11 @@ const SubMenu: React.FC<SubMenuProps> = ({ items, activeId, setActiveId }) => {
         {items.map((item) => (
           <li key={item.id}>
             <button
-              className={activeId === item.id ? 'active' : ''}
-              onClick={() => handleItemClick(item.id, item.path)}
+              className={activeId === item.id ? 'active' : ''} // Utilisation de activeId
+              onClick={() => {
+                handleItemClick(item.id, item.path);
+                setActiveId(item.id); // Mise à jour de activeId
+              }}
             >
               {item.label}
             </button>

@@ -34,3 +34,8 @@
 .sub-menu button:hover {
   color: white;
 }
+
+button.active {
+  background-color: #007bff; /* Remplacez #yourColor par la couleur souhaitée */
+  color: white;
+}

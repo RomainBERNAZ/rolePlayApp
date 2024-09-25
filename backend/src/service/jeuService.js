@@ -1,4 +1,5 @@
 import JeuRepository from '../repository/jeuRepository.js';
+import PersonnageRepository from '../repository/personnageRepository.js';
 
 class JeuService {
   static async creerJeu(jeuData) {
@@ -41,6 +42,15 @@ class JeuService {
   static async ajouterPersonnage(id, personnageId) {
     const jeu = await this.obtenirJeuParId(id);
     jeu.personnages.push(personnageId);
+    
+    // Ajouter le jeu au personnage si besoin
+    const personnage = await PersonnageRepository.obtenirParId(personnageId);
+
+    if (personnage) {
+      personnage.jeux.push(id);
+      await JeuRepository.sauvegarderPersonnage(personnage);
+    }
+
     await JeuRepository.sauvegarder(jeu);
     return await JeuRepository.obtenirParIdAvecPopulate(id);
   }

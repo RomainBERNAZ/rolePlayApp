@@ -6,6 +6,7 @@ const jeuSchema = new mongoose.Schema({
   joueurs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Joueur' }],
   personnages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Personnage' }],
   statut: { type: String, enum: ['en_preparation', 'en_cours', 'termine'], default: 'en_preparation' },
+  classes: [{type: mongoose.Schema.Types.ObjectId, ref: 'Classe'}],
   saisons: [{type: mongoose.Schema.Types.ObjectId, ref: 'Saison'}]  
 });
 

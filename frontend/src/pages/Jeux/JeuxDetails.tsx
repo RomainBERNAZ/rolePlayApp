@@ -7,6 +7,11 @@ import PersonnageJeu from './PersonnageJeu/PersonnageJeu.tsx';
 import Bestiaire from './Bestiaire/Bestiaire.tsx';
 import './JeuxDetails.css';
 import { API_URL } from '../../utils/constants';
+import Accueil from './Accueil/Accueil.tsx';
+import Regles from './Regles/Regles.tsx';
+import Saison from './Saison/Saison.tsx';
+import Objet from './Objet/Objet.tsx';
+import ClasseComponent from './Classe/Classe.tsx';
 
 const JeuxDetails: React.FC = () => {
   const location = useLocation();
@@ -15,7 +20,6 @@ const JeuxDetails: React.FC = () => {
   const [jeu, setJeu] = useState(location.state?.jeu);
   const [activeId, setActiveId] = useState('accueil');
   const [isLoading, setIsLoading] = useState(!location.state?.jeu);
-
 
   useEffect(() => {
     const fetchJeuDetails = async () => {
@@ -38,16 +42,29 @@ const JeuxDetails: React.FC = () => {
     }
   }, [id]);
 
+  const { _id } = jeu; 
+  const commonProps = { jeuId: _id, jeu, setJeu }; 
+
   const renderContent = useMemo(() => {
     if (isLoading || !jeu) {
       return <div>Loading...</div>;
     }
 
     switch (activeId) {
+      case 'accueil':
+        return <Accueil key={_id} {...commonProps} />;
+      case 'regles':
+        return <Regles key={_id} {...commonProps} />;
       case 'personnages':
-        return <PersonnageJeu key={jeu._id} jeuId={jeu._id} jeu={jeu} setJeu={setJeu} />;
+        return <PersonnageJeu key={_id} {...commonProps} />; 
       case 'bestiaire':
-        return <Bestiaire key={jeu._id} jeuId={jeu._id} jeu={jeu} setJeu={setJeu} />;
+        return <Bestiaire key={_id} {...commonProps} />; 
+      case 'objets':
+        return <Objet key={_id} {...commonProps} />; 
+      case 'saisons':
+        return <Saison key={_id} {...commonProps} />; 
+      case 'classes':
+        return <ClasseComponent key={_id} {...commonProps} />; 
       default:
         return <div>Contenu de l'accueil</div>;
     }
