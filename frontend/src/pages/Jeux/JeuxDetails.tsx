@@ -17,9 +17,9 @@ const JeuxDetails: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const [jeu, setJeu] = useState(location.state?.jeu);
+  const [jeu, setJeu] = useState<any>(null); // Initialiser jeu à null
   const [activeId, setActiveId] = useState('accueil');
-  const [isLoading, setIsLoading] = useState(!location.state?.jeu);
+  const [isLoading, setIsLoading] = useState(true); // Toujours commencer avec isLoading à true
 
   useEffect(() => {
     const fetchJeuDetails = async () => {
@@ -28,26 +28,26 @@ const JeuxDetails: React.FC = () => {
         const response = await axios.get(`${API_URL}/jeux/${id}`);
         setJeu(response.data);
       } catch (error) {
-        console.error('Error fetching game details:', error);
-        // Optionally, redirect to an error page or show an error message
+        console.error(
+          'Erreur lors de la récupération des détails du jeu:',
+          error
+        );
+        // Optionnellement, rediriger vers une page d'erreur ou afficher un message d'erreur
       } finally {
         setIsLoading(false);
       }
     };
 
-    if (!jeu) {
-      fetchJeuDetails();
-    } else {
-      setIsLoading(false);
-    }
+    fetchJeuDetails();
   }, [id]);
 
-  const { _id } = jeu; 
-  const commonProps = { jeuId: _id, jeu, setJeu }; 
+  // Vérifier si jeu est null avant d'accéder à _id
+  const _id = jeu?._id;
 
   const renderContent = useMemo(() => {
+    const commonProps = { jeuId: _id, jeu, setJeu };
     if (isLoading || !jeu) {
-      return <div>Loading...</div>;
+      return <div>Chargement...</div>;
     }
 
     switch (activeId) {
@@ -56,22 +56,27 @@ const JeuxDetails: React.FC = () => {
       case 'regles':
         return <Regles key={_id} {...commonProps} />;
       case 'personnages':
-        return <PersonnageJeu key={_id} {...commonProps} />; 
+        return <PersonnageJeu key={_id} {...commonProps} />;
       case 'bestiaire':
-        return <Bestiaire key={_id} {...commonProps} />; 
+        return <Bestiaire key={_id} {...commonProps} />;
       case 'objets':
-        return <Objet key={_id} {...commonProps} />; 
+        return <Objet key={_id} {...commonProps} />;
       case 'saisons':
-        return <Saison key={_id} {...commonProps} />; 
+        return <Saison key={_id} {...commonProps} />;
       case 'classes':
-        return <ClasseComponent key={_id} {...commonProps} />; 
+        return <ClasseComponent key={_id} {...commonProps} />;
       default:
         return <div>Contenu de l'accueil</div>;
     }
-  }, [activeId, jeu, isLoading]);
+  }, [_id, jeu, setJeu, isLoading, activeId]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Chargement...</div>;
+  }
+
+  // Vérifier si jeu existe avant d'accéder à ses propriétés
+  if (!jeu) {
+    return <div>Erreur : Impossible de charger les détails du jeu.</div>;
   }
 
   const subMenuItems = [
@@ -79,21 +84,27 @@ const JeuxDetails: React.FC = () => {
     { id: 'regles', label: 'Règles' },
     { id: 'saisons', label: 'Saisons' },
     { id: 'personnages', label: 'Personnages' },
-    { id: 'classes', label: 'Classes'},
-    { id: 'bestiaire', label: 'Bestiaire'},
-    { id: 'objets', label: 'Objets'},
+    { id: 'classes', label: 'Classes' },
+    { id: 'bestiaire', label: 'Bestiaire' },
+    { id: 'objets', label: 'Objets' },
   ];
 
   return (
     <div className="jeu-details-container">
       <h1>{jeu?.nom}</h1>
-      <div className="submenu-container"> 
-        <SubMenu items={subMenuItems} activeId={activeId} setActiveId={setActiveId} />
+      <div className="submenu-container">
+        <SubMenu
+          items={subMenuItems}
+          activeId={activeId}
+          setActiveId={setActiveId}
+        />
       </div>
-      
+
       {renderContent}
 
-      <Link to="/jeux" className="back-link">Retour à la liste des jeux</Link>
+      <Link to="/jeux" className="back-link">
+        Retour à la liste des jeux
+      </Link>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import Jeu from '../models/Jeu.js'; 
+import Jeu from '../models/Jeu.js';
 
 class JeuRepository {
   static async creer(jeuData) {
@@ -16,15 +16,18 @@ class JeuRepository {
         select: 'nom classe race saison joueur',
         populate: {
           path: 'classe',
-          select: 'nom'
-        }
+          select: 'nom',
+        },
       });
   }
 
   static async obtenirParId(id) {
     return await Jeu.findById(id)
       .populate('joueurs', 'nom email')
-      .populate('personnages')
+      .populate({
+        path: 'personnages',
+        populate: { path: 'classe', select: 'nom' },
+      })
       .populate('saisons', '_id numero')
       .populate('classes');
   }
@@ -71,7 +74,6 @@ class JeuRepository {
       { new: true }
     ).populate('joueurs', 'nom email');
   }
-
 }
 
 export default JeuRepository;

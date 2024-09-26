@@ -1,11 +1,15 @@
 import Classe from '../models/Classe.js';
+import classeService from '../service/classeService.js';
 
 // Créer une nouvelle classe
 export const createClasse = async (req, res) => {
   try {
     const { nom, description, jeu } = req.body;
-    const newClasse = new Classe({ nom, description, jeu });
-    const savedClasse = await newClasse.save();
+    const savedClasse = await classeService.createClasse({
+      nom,
+      description,
+      jeu,
+    });
     res.status(201).json(savedClasse);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -82,5 +86,5 @@ export default {
   getClasseById,
   getClassesByJeuId,
   updateClasse,
-  deleteClasse
+  deleteClasse,
 };
