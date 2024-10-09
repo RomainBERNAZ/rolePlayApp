@@ -26,7 +26,8 @@ export const login = async (username, password) => {
 };
 
 export const register = async (username, email, password, role) => {
-  const existingUser = await User.findOne({ email });
+  // Utiliser une méthode de recherche sécurisée
+  const existingUser = await User.findByEmail(email);
 
   if (existingUser) {
     throw new Error('Cet email est déjà utilisé');
