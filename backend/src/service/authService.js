@@ -39,12 +39,14 @@ export const register = async (username, email, password, role) => {
   const validRoles = ['user', 'admin', 'moderator']; // Ajoutez ou modifiez selon vos besoins
   const sanitizedRole = validRoles.includes(role) ? role : 'user';
 
-  await User.create({
+  const newUser = new User({
     username: username.trim(),
     email: email.toLowerCase().trim(),
     password: hashedPassword,
     role: sanitizedRole,
   });
+
+  await newUser.save();
 };
 
 export const logout = async (token) => {
