@@ -4,10 +4,11 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "test:coverage": "jest --coverage",
+    "test:coverage": "jest --coverage --coverageReporters=lcov",
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "coveralls": "jest --coverage && coveralls < coverage/lcov.info"
+    "coveralls": "jest --coverage && coveralls < coverage/lcov.info",
+    "sonar": "sonar-scanner"
   },
   "keywords": [],
   "author": "",
@@ -28,7 +29,8 @@
     "jest": "^29.7.0",
     "mongodb-memory-server": "^10.0.0",
     "nodemon": "^3.1.4",
-    "supertest": "^7.0.0"
+    "supertest": "^7.0.0",
+    "sonarqube-scanner": "^3.3.0"
   },
   "type": "module"
 }

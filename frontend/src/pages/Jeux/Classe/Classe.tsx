@@ -29,7 +29,7 @@ const ClasseComponent: React.FC<ClasseProps> = ({ jeu }) => {
       setClasses(response.data);
     } catch (error) {
       console.error('Erreur lors de la récupération des classes:', error);
-      setClasses([]); // Ensure classes are reset on error
+      setClasses([]);
     }
   };
 
