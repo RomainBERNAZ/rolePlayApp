@@ -15,7 +15,7 @@ const Jeux: React.FC = () => {
     saisons: [],
     joueurs: [],
     regles: '',
-    personnages: []
+    personnages: [],
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -39,7 +39,9 @@ const Jeux: React.FC = () => {
     fetchJeux();
   }, [fetchJeux]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setNouveauJeu({ ...nouveauJeu, [name]: value });
   };
@@ -49,7 +51,14 @@ const Jeux: React.FC = () => {
     try {
       await axios.post(`${API_URL}/jeux`, nouveauJeu);
       await fetchJeux();
-      setNouveauJeu({ nom: '', description: '', saisons: [], joueurs: [], regles: '', personnages: [] });
+      setNouveauJeu({
+        nom: '',
+        description: '',
+        saisons: [],
+        joueurs: [],
+        regles: '',
+        personnages: [],
+      });
       setIsModalOpen(false);
     } catch (error) {
       console.error('Erreur lors de la création du jeu', error);
@@ -73,7 +82,9 @@ const Jeux: React.FC = () => {
     <div className="jeux-container">
       <h1>Gestion des Jeux de Rôle</h1>
       {isAdmin && (
-        <button onClick={() => setIsModalOpen(true)} className="create-button">Créer un nouveau jeu</button>
+        <button onClick={() => setIsModalOpen(true)} className="create-button">
+          Créer un nouveau jeu
+        </button>
       )}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <form onSubmit={handleSubmit} className="jeu-form">
@@ -104,10 +115,14 @@ const Jeux: React.FC = () => {
       </Modal>
       <div className="jeux-list">
         {jeux.map((jeu) => (
-          <div key={jeu._id} className="jeu-item" onClick={() => handleJeuClick(jeu)}>
+          <button
+            key={jeu._id}
+            className="jeu-item"
+            onClick={() => handleJeuClick(jeu)}
+          >
             <h3>{jeu.nom}</h3>
             <p>{jeu.description}</p>
-          </div>
+          </button>
         ))}
       </div>
     </div>
