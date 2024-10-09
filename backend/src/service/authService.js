@@ -3,12 +3,15 @@ import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
 export const login = async (username, password) => {
-  const user = await User.findOne({ username }).populate('role');
+  // Utiliser une méthode de recherche sécurisée
+  const user = await User.findByUsername(username);
+
   if (!user) {
     throw new Error('Utilisateur non trouvé');
   }
 
   const isMatch = await bcrypt.compare(password, user.password);
+
   if (!isMatch) {
     throw new Error('Mot de passe incorrect');
   }
