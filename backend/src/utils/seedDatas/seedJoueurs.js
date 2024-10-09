@@ -1,5 +1,4 @@
-import mongoose from 'mongoose'; 
-import Joueur from '../../models/Joueur.js'; // Assurez-vous que le chemin est correct
+import Joueur from '../../models/Joueur.js';
 
 async function seedJoueurs() {
   const joueurs = [
@@ -20,7 +19,9 @@ async function seedJoueurs() {
         });
         console.log(`Joueur créé : ${joueur.email} (${joueur.role})`);
       } catch (error) {
-        console.error(`Erreur lors de la création du joueur ${joueur.email}: ${error.message}`);
+        console.error(
+          `Erreur lors de la création du joueur ${joueur.email}: ${error.message}`
+        );
       }
     } else {
       console.log(`Le joueur ${joueur.email} (${joueur.role}) existe déjà`);

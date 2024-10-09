@@ -12,25 +12,27 @@ class JeuService {
 
   static async obtenirJeuParId(id) {
     const jeu = await JeuRepository.obtenirParId(id);
-    if (!jeu) throw new Error("Jeu non trouvé");
+    if (!jeu) throw new Error('Jeu non trouvé');
     return jeu;
   }
 
   static async mettreAJourJeu(id, jeuData) {
     const jeu = await JeuRepository.mettreAJour(id, jeuData);
-    if (!jeu) throw new Error("Jeu non trouvé");
+    if (!jeu) throw new Error('Jeu non trouvé');
     return jeu;
   }
 
   static async supprimerJeu(id) {
     const jeu = await JeuRepository.supprimer(id);
-    if (!jeu) throw new Error("Jeu non trouvé");
+    if (!jeu) throw new Error('Jeu non trouvé');
     return jeu;
   }
 
   static async retirerJoueur(id, playerId) {
     const jeu = await this.obtenirJeuParId(id);
-    const joueurIndex = jeu.joueurs.findIndex(joueur => joueur.toString() === playerId);
+    const joueurIndex = jeu.joueurs.findIndex(
+      (joueur) => joueur.toString() === playerId
+    );
     if (joueurIndex === -1) throw new Error("Le joueur n'est pas dans ce jeu");
 
     jeu.joueurs.splice(joueurIndex, 1);
@@ -42,7 +44,7 @@ class JeuService {
   static async ajouterPersonnage(id, personnageId) {
     const jeu = await this.obtenirJeuParId(id);
     jeu.personnages.push(personnageId);
-    
+
     // Ajouter le jeu au personnage si besoin
     const personnage = await PersonnageRepository.obtenirParId(personnageId);
 
@@ -58,8 +60,8 @@ class JeuService {
   static async retirerPersonnage(id, personnageId) {
     try {
       const jeu = await this.obtenirJeuParId(id);
-      const personnageIndex = jeu.personnages.findIndex(personnage => 
-        personnage._id.toString() === personnageId
+      const personnageIndex = jeu.personnages.findIndex(
+        (personnage) => personnage._id.toString() === personnageId
       );
       if (personnageIndex === -1) {
         throw new Error("Le personnage n'est pas dans ce jeu");
@@ -67,7 +69,7 @@ class JeuService {
 
       jeu.personnages.splice(personnageIndex, 1);
 
-      const jeuMisAJour = await JeuRepository.sauvegarder(jeu);
+      await JeuRepository.sauvegarder(jeu);
 
       return await JeuRepository.obtenirParIdAvecPopulate(id);
     } catch (error) {

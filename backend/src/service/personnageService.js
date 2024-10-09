@@ -8,7 +8,7 @@ class PersonnageService {
     const { joueur, jeuId, saisons, ...autresData } = personnageData;
     const nouveauPersonnage = await PersonnageRepository.creer(autresData);
 
-    if (joueur && joueur._id) {
+    if (joueur?._id) {
       await this.associerJoueur(nouveauPersonnage._id, joueur._id);
     }
 
@@ -22,7 +22,7 @@ class PersonnageService {
   static async associerJoueur(personnageId, joueurId) {
     const joueur = await JoueurRepository.obtenirParId(joueurId);
     if (!joueur) {
-      throw new Error("Joueur non trouvé");
+      throw new Error('Joueur non trouvé');
     }
     await PersonnageRepository.definirJoueur(personnageId, joueurId);
     await JoueurRepository.ajouterPersonnage(joueurId, personnageId);
@@ -31,21 +31,24 @@ class PersonnageService {
   static async associerJeu(personnageId, jeuId, saisons) {
     const jeu = await JeuRepository.obtenirParId(jeuId);
     if (!jeu) {
-      throw new Error("Jeu non trouvé");
+      throw new Error('Jeu non trouvé');
     }
     const personnage = await PersonnageRepository.obtenirParId(personnageId);
     if (!personnage) {
-      throw new Error("Personnage non trouvé");
+      throw new Error('Personnage non trouvé');
     }
     const participation = await ParticipationRepository.creer({
       personnage: personnageId,
       jeu: jeuId,
       saisons: saisons,
-      statut: 'en attente'
+      statut: 'en attente',
     });
-    await PersonnageRepository.ajouterParticipation(personnageId, participation._id);
+    await PersonnageRepository.ajouterParticipation(
+      personnageId,
+      participation._id
+    );
     await JeuRepository.ajouterPersonnage(jeuId, personnageId);
-    
+
     // Associer le joueur au jeu si le personnage a un joueur
     if (personnage.joueur) {
       await JeuRepository.ajouterJoueur(jeuId, personnage.joueur);
@@ -54,7 +57,10 @@ class PersonnageService {
 
   static async mettreAJourPersonnage(id, donnees) {
     const { jeu, saisons, ...autresDonnees } = donnees;
-    const personnage = await PersonnageRepository.mettreAJour(id, autresDonnees);
+    const personnage = await PersonnageRepository.mettreAJour(
+      id,
+      autresDonnees
+    );
     if (!personnage) {
       return null;
     }
