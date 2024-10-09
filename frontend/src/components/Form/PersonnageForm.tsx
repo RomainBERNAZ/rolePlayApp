@@ -37,14 +37,14 @@ export const PersonnageForm: React.FC<PersonnageFormProps> = ({ onSubmit }) => {
     equipement: [],
     competences: [],
     participations: [],
-    jeuId: '', 
+    jeuId: '',
     joueur: {
       _id: '',
       nom: '',
       email: '',
       personnages: [],
       jeux: [],
-    }, 
+    },
     saison: '1', // Assurez-vous que cette ligne existe
   });
   const [jeux, setJeux] = useState<Jeu[]>([]);
@@ -54,7 +54,7 @@ export const PersonnageForm: React.FC<PersonnageFormProps> = ({ onSubmit }) => {
   useEffect(() => {
     const fetchJeux = async () => {
       try {
-          const response = await axios.get<Jeu[]>(`${API_URL}/jeux`);
+        const response = await axios.get<Jeu[]>(`${API_URL}/jeux`);
         setJeux(response.data);
       } catch (error) {
         console.error('Erreur lors de la récupération des jeux:', error);
@@ -73,24 +73,48 @@ export const PersonnageForm: React.FC<PersonnageFormProps> = ({ onSubmit }) => {
     fetchJoueurs();
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setPersonnage({ ...personnage, [name]: value });
   };
 
-  const handleJeuChange = (selectedOption: { value: string; label: string } | null) => {
+  const handleJeuChange = (
+    selectedOption: { value: string; label: string } | null
+  ) => {
     setClasses([]); // Reset classes immediately when jeu changes
     if (selectedOption) {
-      setPersonnage({ ...personnage, jeuId: selectedOption.value, classe: { _id: '', nom: '', description: '', jeu: personnage.classe.jeu } });
+      setPersonnage({
+        ...personnage,
+        jeuId: selectedOption.value,
+        classe: {
+          _id: '',
+          nom: '',
+          description: '',
+          jeu: personnage.classe.jeu,
+        },
+      });
       fetchClasses(selectedOption.value);
     } else {
-      setPersonnage({ ...personnage, jeuId: '', classe: { _id: '', nom: '', description: '', jeu: personnage.classe.jeu } });
+      setPersonnage({
+        ...personnage,
+        jeuId: '',
+        classe: {
+          _id: '',
+          nom: '',
+          description: '',
+          jeu: personnage.classe.jeu,
+        },
+      });
     }
   };
 
   const fetchClasses = async (jeuId: string) => {
     try {
-      const response = await axios.get<Classe[]>(`${API_URL}/classes/jeu/${jeuId}`);
+      const response = await axios.get<Classe[]>(
+        `${API_URL}/classes/jeu/${jeuId}`
+      );
       setClasses(response.data);
     } catch (error) {
       console.error('Erreur lors de la récupération des classes:', error);
@@ -98,9 +122,13 @@ export const PersonnageForm: React.FC<PersonnageFormProps> = ({ onSubmit }) => {
     }
   };
 
-  const handleJoueurChange = (selectedOption: { value: string; label: string } | null) => {
+  const handleJoueurChange = (
+    selectedOption: { value: string; label: string } | null
+  ) => {
     if (selectedOption) {
-      const selectedJoueur = joueurs.find(joueur => joueur._id === selectedOption.value);
+      const selectedJoueur = joueurs.find(
+        (joueur) => joueur._id === selectedOption.value
+      );
       if (selectedJoueur) {
         setPersonnage({ ...personnage, joueur: selectedJoueur });
       }
@@ -113,12 +141,16 @@ export const PersonnageForm: React.FC<PersonnageFormProps> = ({ onSubmit }) => {
     console.log(personnage);
   };
 
-  const raceOptions = Object.values(Race).map(race => ({ value: race, label: race }));
+  const raceOptions = Object.values(Race).map((race) => ({
+    value: race,
+    label: race,
+  }));
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>Nom du personnage</label>
+      <label htmlFor="nom">Nom du personnage</label>
       <input
+        id="nom"
         type="text"
         name="nom"
         value={personnage.nom}
@@ -126,37 +158,58 @@ export const PersonnageForm: React.FC<PersonnageFormProps> = ({ onSubmit }) => {
         placeholder="Nom du personnage"
         required
       />
-      <label>Sélectionner un jeu</label>
+      <label htmlFor="jeu">Sélectionner un jeu</label>
       <Select
-        options={jeux.map(jeu => ({ value: jeu._id, label: jeu.nom }))}
+        inputId="jeu"
+        options={jeux.map((jeu) => ({ value: jeu._id, label: jeu.nom }))}
         onChange={handleJeuChange}
         placeholder="Sélectionner un jeu"
       />
-      <label>Sélectionner une classe</label>
+      <label htmlFor="classe">Sélectionner une classe</label>
       <Select
-        options={classes.map(classe => ({ value: classe._id, label: classe.nom }))}
+        inputId="classe"
+        options={classes.map((classe) => ({
+          value: classe._id,
+          label: classe.nom,
+        }))}
         isDisabled={classes.length === 0} // Disable only if no classes are loaded
         placeholder="Sélectionner une classe"
         onChange={(selectedOption) => {
           if (selectedOption) {
-            const selectedClasse = classes.find(c => c._id === selectedOption.value);
+            const selectedClasse = classes.find(
+              (c) => c._id === selectedOption.value
+            );
             setPersonnage({
               ...personnage,
-              classe: selectedClasse || personnage.classe
+              classe: selectedClasse || personnage.classe,
             });
           } else {
             setPersonnage({
               ...personnage,
-              classe: { _id: '', nom: '', description: '', jeu: personnage.classe.jeu }
+              classe: {
+                _id: '',
+                nom: '',
+                description: '',
+                jeu: personnage.classe.jeu,
+              },
             });
           }
         }}
-        value={personnage.classe._id ? { value: personnage.classe._id, label: personnage.classe.nom } : null}
+        value={
+          personnage.classe._id
+            ? { value: personnage.classe._id, label: personnage.classe.nom }
+            : null
+        }
       />
-      <label>Race</label>
+      <label htmlFor="race">Race</label>
       <Select
+        inputId="race"
         options={raceOptions}
-        value={personnage.race ? { value: personnage.race, label: personnage.race } : null}
+        value={
+          personnage.race
+            ? { value: personnage.race, label: personnage.race }
+            : null
+        }
         placeholder="Sélectionner une race"
         onChange={(selectedOption) => {
           if (selectedOption) {
@@ -166,8 +219,9 @@ export const PersonnageForm: React.FC<PersonnageFormProps> = ({ onSubmit }) => {
           }
         }}
       />
-      <label>Niveau</label>
+      <label htmlFor="niveau">Niveau</label>
       <input
+        id="niveau"
         type="number"
         name="niveau"
         value={personnage.niveau}
@@ -175,14 +229,19 @@ export const PersonnageForm: React.FC<PersonnageFormProps> = ({ onSubmit }) => {
         placeholder="Niveau"
         required
       />
-      <label>Sélectionner un joueur</label>
+      <label htmlFor="joueur">Sélectionner un joueur</label>
       <Select
-        options={joueurs.map(joueur => ({ value: joueur._id, label: joueur.nom }))}
+        inputId="joueur"
+        options={joueurs.map((joueur) => ({
+          value: joueur._id,
+          label: joueur.nom,
+        }))}
         onChange={handleJoueurChange}
         placeholder="Sélectionner un joueur"
       />
-      <label>Saison</label>
+      <label htmlFor="saison">Saison</label>
       <input
+        id="saison"
         type="text"
         name="saison"
         value={personnage.saison}

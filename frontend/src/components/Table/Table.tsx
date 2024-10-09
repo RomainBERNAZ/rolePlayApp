@@ -17,8 +17,8 @@ function Table<T>({ data, columns, className = '' }: TableProps<T>) {
     <table className={`reusable-table ${className}`}>
       <thead>
         <tr>
-          {columns.map((column, index) => (
-            <th key={index}>{column.header}</th>
+          {columns.map((column) => (
+            <th key={column.header}>{column.header}</th>
           ))}
         </tr>
       </thead>
@@ -29,7 +29,7 @@ function Table<T>({ data, columns, className = '' }: TableProps<T>) {
               <td key={colIndex}>
                 {typeof column.accessor === 'function'
                   ? column.accessor(item)
-                  : item[column.accessor] as React.ReactNode}
+                  : (item[column.accessor] as React.ReactNode)}
               </td>
             ))}
           </tr>

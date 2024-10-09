@@ -4,22 +4,33 @@ import { OptionType } from '../../types/common';
 import Personnage from '../../types/personnage';
 import './FilterSection.css';
 
-
-
 interface FilterSectionProps {
   personnages: Personnage[];
-  onFilterChange: (selectedOptions: MultiValue<OptionType>, filterType: string) => void;  
+  onFilterChange: (
+    selectedOptions: MultiValue<OptionType>,
+    filterType: string
+  ) => void;
 }
 
-const FilterSection: React.FC<FilterSectionProps> = ({ personnages, onFilterChange }) => {
+const FilterSection: React.FC<FilterSectionProps> = ({
+  personnages,
+  onFilterChange,
+}) => {
   const getUniqueOptions = (key: string): OptionType[] => {
     if (!personnages || personnages.length === 0) return [];
-    const uniqueValues = Array.from(new Set(personnages.map(p => {
-      const keys = key.split('.');
-      const value = keys.reduce((obj, k) => obj && obj[k as keyof typeof obj], p as any);
-      return value;
-    }))).filter((value): value is string => value !== null && value !== undefined);
-    return uniqueValues.map(value => ({ value, label: value }));
+    const uniqueValues = Array.from(
+      new Set(
+        personnages.map((p) => {
+          const keys = key.split('.');
+          const value = keys.reduce(
+            (obj, k) => obj?.[k as keyof typeof obj],
+            p as any
+          );
+          return value;
+        })
+      )
+    ).filter((value): value is string => value !== null && value !== undefined);
+    return uniqueValues.map((value) => ({ value, label: value }));
   };
 
   const classes = useMemo(() => getUniqueOptions('classe.nom'), [personnages]);
@@ -27,10 +38,6 @@ const FilterSection: React.FC<FilterSectionProps> = ({ personnages, onFilterChan
   const joueurs = useMemo(() => getUniqueOptions('joueur.nom'), [personnages]);
 
   const [searchTerm, setSearchTerm] = useState('');
-
-  const filteredPersonnages = useMemo(() => {
-    return personnages.filter(p => p.nom.toLowerCase().startsWith(searchTerm.toLowerCase()));
-  }, [searchTerm, personnages]);
 
   if (!personnages || personnages.length === 0) {
     return <div>Aucun personnage disponible</div>;
@@ -69,7 +76,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({ personnages, onFilterChan
         className="react-select-container"
         classNamePrefix="react-select"
       />
-      
+
       <input
         type="text"
         value={searchTerm}

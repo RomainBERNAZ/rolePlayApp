@@ -1,4 +1,10 @@
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  ReactNode,
+  useMemo,
+} from 'react';
 
 interface UserContextProps {
   userRole: string | null;
@@ -6,7 +12,9 @@ interface UserContextProps {
   isAdmin: boolean;
 }
 
-export const UserContext = createContext<UserContextProps | undefined>(undefined);
+export const UserContext = createContext<UserContextProps | undefined>(
+  undefined
+);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [userRole, setUserRole] = useState<string | null>(null);
@@ -18,9 +26,16 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const isAdmin = userRole === 'Admin';
 
+  const contextValue = useMemo(
+    () => ({
+      userRole,
+      setUserRole,
+      isAdmin,
+    }),
+    [userRole, isAdmin]
+  );
+
   return (
-    <UserContext.Provider value={{ userRole, setUserRole, isAdmin }}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>
   );
 };
