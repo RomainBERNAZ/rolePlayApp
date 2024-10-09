@@ -27,6 +27,7 @@ export const login = async (username, password) => {
 
 export const register = async (username, email, password, role) => {
   const existingUser = await User.findOne({ email });
+
   if (existingUser) {
     throw new Error('Cet email est déjà utilisé');
   }
@@ -34,7 +35,16 @@ export const register = async (username, email, password, role) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
 
-  await User.create({ username, email, password: hashedPassword, role });
+  // Utiliser une liste prédéfinie de rôles valides
+  const validRoles = ['user', 'admin', 'moderator']; // Ajoutez ou modifiez selon vos besoins
+  const sanitizedRole = validRoles.includes(role) ? role : 'user';
+
+  await User.create({
+    username: username.trim(),
+    email: email.toLowerCase().trim(),
+    password: hashedPassword,
+    role: sanitizedRole,
+  });
 };
 
 export const logout = async (token) => {
